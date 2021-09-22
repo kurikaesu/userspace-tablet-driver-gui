@@ -2,6 +2,7 @@ package dev.villanueva.userland_utility.products.xppen
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import dev.villanueva.userland_utility.iterop.DriverPacketHandler
+import dev.villanueva.userland_utility.iterop.DriverSocket
 import dev.villanueva.userland_utility.products.Configuration
 import dev.villanueva.userland_utility.products.DeviceConfiguration
 import javafx.collections.FXCollections
@@ -71,32 +72,22 @@ class DecoProController : Controller() {
             val config = mapper.writeValueAsString(existingConfig)
             configFile.outputStream().write(config.toByteArray())
 
-            val sockPath = "${System.getenv("HOME")}/.local/var/run/xp_pen_userland.sock"
-            val sockFile = File(sockPath)
+            if (DriverSocket.connected) {
+                // Send through a config reload
+                val packet = DriverPacketHandler(
+                    1,
+                    0x0000,
+                    0x0002,
+                    0,
+                    0,
+                    true,
+                    0,
+                    0,
+                    0,
+                )
 
-            val sock: AFUNIXSocket = AFUNIXSocket.newInstance()
-            try {
-                sock.connect(AFUNIXSocketAddress.of(sockFile))
-            } catch (e: SocketException) {
-                println("Is the driver not running? Could not connect to it")
+                packet.writeToOutputStream(DriverSocket.getOutputStream()!!)
             }
-
-            // Send through a config reload
-            val packet = DriverPacketHandler(
-                1,
-                0x0000,
-                0x0002,
-                0,
-                0,
-                true,
-                0,
-                0,
-                0,
-            )
-
-            packet.writeToOutputStream(sock.outputStream)
-
-            sock.close()
         }
     }
 }

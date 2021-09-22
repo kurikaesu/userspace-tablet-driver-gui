@@ -2,6 +2,7 @@ package dev.villanueva.userland_utility
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import dev.villanueva.userland_utility.iterop.DriverPacketHandler
+import dev.villanueva.userland_utility.iterop.DriverSocket
 import dev.villanueva.userland_utility.products.Configuration
 import dev.villanueva.userland_utility.products.DeviceConfiguration
 import dev.villanueva.userland_utility.products.MappingConfiguration
@@ -14,28 +15,12 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
 class UserlandUtilityController: Controller() {
-    private val sock: AFUNIXSocket = AFUNIXSocket.newInstance()
     private val connectedDevices: HashSet<String> = HashSet()
-    private var connected: Boolean
-
-    init {
-        val sockPath = "${System.getenv("HOME")}/.local/var/run/xp_pen_userland.sock"
-        val sockFile = File(sockPath)
-
-        try {
-            sock.connect(AFUNIXSocketAddress.of(sockFile))
-        } catch (e: SocketException) {
-            println("Is the driver not running? Could not connect to it")
-            connected = false
-        }
-
-        connected = true
-    }
 
     fun getConnectedDevices(): HashSet<String> {
         connectedDevices.clear()
 
-        if (connected) {
+        if (DriverSocket.connected) {
             val packet = DriverPacketHandler(
                 1,
                 0x0000,
@@ -48,9 +33,9 @@ class UserlandUtilityController: Controller() {
                 0,
             )
 
-            packet.writeToOutputStream(sock.outputStream)
+            packet.writeToOutputStream(DriverSocket.getOutputStream()!!)
 
-            val response = DriverPacketHandler.readFromInputStream(sock.inputStream)
+            val response = DriverPacketHandler.readFromInputStream(DriverSocket.getInputStream()!!)
             if (response != null) {
                 val responseBuffer = ByteBuffer.wrap(response.data)
                 responseBuffer.order(ByteOrder.LITTLE_ENDIAN)
