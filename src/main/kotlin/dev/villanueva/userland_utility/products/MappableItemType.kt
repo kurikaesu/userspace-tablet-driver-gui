@@ -1,4 +1,4 @@
-package dev.villanueva.userland_utility.products.xppen
+package dev.villanueva.userland_utility.products
 
 enum class MappableItemType(val value: Int) {
     Button(1),

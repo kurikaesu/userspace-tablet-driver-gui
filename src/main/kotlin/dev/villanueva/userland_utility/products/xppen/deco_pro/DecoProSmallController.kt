@@ -1,14 +1,17 @@
-package dev.villanueva.userland_utility.products.xppen
+package dev.villanueva.userland_utility.products.xppen.deco_pro
 
 import dev.villanueva.userland_utility.iterop.DriverPackets
 import dev.villanueva.userland_utility.iterop.DriverSocket
+import dev.villanueva.userland_utility.products.DriverCodeIDs
+import dev.villanueva.userland_utility.products.MappableItem
+import dev.villanueva.userland_utility.products.MappableItemType
 import dev.villanueva.userland_utility.products.config.Configuration
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import tornadofx.Controller
 
-class DecoProController : Controller() {
+class DecoProSmallController : Controller() {
     val mapItems: ObservableList<MappableItem> = FXCollections.observableArrayList()
     private val buttonBindings: HashMap<String, HashMap<String, HashSet<Int>>> = HashMap()
     private val dialBindings: HashMap<String, HashMap<String, HashMap<String, HashSet<Int>>>> = HashMap()

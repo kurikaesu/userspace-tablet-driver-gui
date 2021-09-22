@@ -1,4 +1,4 @@
-package dev.villanueva.userland_utility.products.xppen
+package dev.villanueva.userland_utility.products.xppen.deco_pro
 
 import com.github.kwhat.jnativehook.GlobalScreen
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent
@@ -7,12 +7,12 @@ import com.github.kwhat.jnativehook.mouse.NativeMouseEvent
 import com.github.kwhat.jnativehook.mouse.NativeMouseListener
 import com.github.kwhat.jnativehook.mouse.NativeMouseWheelEvent
 import com.github.kwhat.jnativehook.mouse.NativeMouseWheelListener
+import dev.villanueva.userland_utility.products.MappableItemType
 import dev.villanueva.userland_utility.products.ProductView
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 import dev.villanueva.userland_utility.products.converters.LinuxInputToFriendlyEvent
 import javafx.application.Platform
 import javafx.scene.control.Button
-import tornadofx.View
 import tornadofx.vbox
 import tornadofx.form
 import tornadofx.fieldset
@@ -20,8 +20,8 @@ import tornadofx.field
 import tornadofx.button
 import tornadofx.action
 
-class DecoProView : ProductView(), NativeKeyListener, NativeMouseListener, NativeMouseWheelListener {
-    private val controller: DecoProController by inject()
+class DecoProSmallView : ProductView(), NativeKeyListener, NativeMouseListener, NativeMouseWheelListener {
+    private val controller: DecoProSmallController by inject()
     val deviceConfiguration: DeviceConfiguration? by param()
 
     private var numKeysPressed: Int = 0

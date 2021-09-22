@@ -1,7 +1,7 @@
 package dev.villanueva.userland_utility.products
 
-import dev.villanueva.userland_utility.products.xppen.DecoProController
-import dev.villanueva.userland_utility.products.xppen.DecoProView
+import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProSmallController
+import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProSmallView
 import kotlin.reflect.KClass
 
 object SupportedProducts {
@@ -10,9 +10,9 @@ object SupportedProducts {
     private val productIdToName: MutableMap<String, String> = HashMap()
 
     init {
-        productToClassMap[DecoProController.getProductName()] = DecoProView::class
-        nameToProductIdMap[DecoProController.getProductName()] = DecoProController.getVendorProductString()
-        productIdToName[DecoProController.getVendorProductString()] = DecoProController.getProductName()
+        productToClassMap[DecoProSmallController.getProductName()] = DecoProSmallView::class
+        nameToProductIdMap[DecoProSmallController.getProductName()] = DecoProSmallController.getVendorProductString()
+        productIdToName[DecoProSmallController.getVendorProductString()] = DecoProSmallController.getProductName()
     }
 
     fun getViewForProduct(product: String): KClass<out ProductView>? {

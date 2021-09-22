@@ -1,4 +1,4 @@
-package dev.villanueva.userland_utility.products.xppen
+package dev.villanueva.userland_utility.products
 
 enum class DriverCodeIDs(val code: Int) {
     BTN_0(256),
