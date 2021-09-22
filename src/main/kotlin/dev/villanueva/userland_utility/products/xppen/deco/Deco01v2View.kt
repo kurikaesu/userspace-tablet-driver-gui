@@ -1,18 +1,18 @@
-package dev.villanueva.userland_utility.products.xppen.deco_pro
+package dev.villanueva.userland_utility.products.xppen.deco
 
 import dev.villanueva.userland_utility.products.MappableItemType
 import dev.villanueva.userland_utility.products.ProductView
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 import dev.villanueva.userland_utility.products.converters.LinuxInputToFriendlyEvent
-import tornadofx.vbox
-import tornadofx.form
-import tornadofx.fieldset
-import tornadofx.field
-import tornadofx.button
 import tornadofx.action
+import tornadofx.button
+import tornadofx.field
+import tornadofx.fieldset
+import tornadofx.form
+import tornadofx.vbox
 
-class DecoProSmallView : ProductView() {
-    private val controller: DecoProSmallController by inject()
+class Deco01v2View : ProductView() {
+    private val controller: Deco01v2Controller by inject()
     val deviceConfiguration: DeviceConfiguration? by param()
 
     override val root = vbox {
@@ -34,18 +34,6 @@ class DecoProSmallView : ProductView() {
                                                 LinuxInputToFriendlyEvent.getKeyDisplayName(it) ?: "UNKNOWN"
                                             }
                                             controller.updateMapping(item.itemType, item.driverCode, HashSet(buttonMap[buttonValueString]), 0, MappableItemType.Button)
-                                        }
-                                    } else if (item.itemType == MappableItemType.Dial) {
-                                        val dialMap = deviceConfiguration!!.mapping.dials[item.driverCode.toString()]
-                                        val itemMatchValueString = item.matchValue.toString()
-                                        if (dialMap!!.containsKey(itemMatchValueString)) {
-                                            val buttonValueString = MappableItemType.Button.value.toString()
-                                            if (dialMap[itemMatchValueString]!!.containsKey(buttonValueString)) {
-                                                labelText = dialMap[itemMatchValueString]!![buttonValueString]!!.joinToString(separator = "+") {
-                                                    LinuxInputToFriendlyEvent.getKeyDisplayName(it) ?: "UNKNOWN"
-                                                }
-                                                controller.updateMapping(item.itemType, item.driverCode, HashSet(dialMap[itemMatchValueString]!![buttonValueString]), item.matchValue, MappableItemType.Button)
-                                            }
                                         }
                                     }
                                 }

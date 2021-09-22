@@ -2,7 +2,6 @@ package dev.villanueva.userland_utility
 
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 import dev.villanueva.userland_utility.products.SupportedProducts
-import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProSmallView
 import javafx.scene.control.ListView
 import javafx.scene.control.SelectionMode
 import tornadofx.*
@@ -34,7 +33,7 @@ class UserlandUtilityView : View() {
                     if (view != null) {
                         find(
                             view,
-                            mapOf(DecoProSmallView::deviceConfiguration to selectedConfig)
+                            mapOf(SupportedProducts.getConfigPropertyForProduct(listView?.selectedItem!!) to selectedConfig)
                         ).openWindow()
                     }
                 }

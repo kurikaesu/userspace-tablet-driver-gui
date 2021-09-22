@@ -5,14 +5,11 @@ import dev.villanueva.userland_utility.iterop.DriverSocket
 import dev.villanueva.userland_utility.products.DriverCodeIDs
 import dev.villanueva.userland_utility.products.MappableItem
 import dev.villanueva.userland_utility.products.MappableItemType
+import dev.villanueva.userland_utility.products.ProductController
 import dev.villanueva.userland_utility.products.config.Configuration
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
-import javafx.collections.FXCollections
-import javafx.collections.ObservableList
-import tornadofx.Controller
 
-class DecoProSmallController : Controller() {
-    val mapItems: ObservableList<MappableItem> = FXCollections.observableArrayList()
+class DecoProSmallController : ProductController() {
     private val buttonBindings: HashMap<String, HashMap<String, HashSet<Int>>> = HashMap()
     private val dialBindings: HashMap<String, HashMap<String, HashMap<String, HashSet<Int>>>> = HashMap()
 
@@ -31,7 +28,7 @@ class DecoProSmallController : Controller() {
         mapItems.add(MappableItem(MappableItemType.Button, "K8", DriverCodeIDs.BTN_7.code, 0))
     }
 
-    fun updateMapping(itemType: MappableItemType, referenceId: Int, mappedValues: HashSet<Int>, matchValue: Int, mappedItemType: MappableItemType) {
+    override fun updateMapping(itemType: MappableItemType, referenceId: Int, mappedValues: HashSet<Int>, matchValue: Int, mappedItemType: MappableItemType) {
         val referenceIdString = referenceId.toString()
         val mappedItemTypeString = mappedItemType.value.toString()
         if (itemType == MappableItemType.Button) {
@@ -54,7 +51,7 @@ class DecoProSmallController : Controller() {
         }
     }
 
-    fun commitChanges(deviceConfiguration: DeviceConfiguration?) {
+    override fun commitChanges(deviceConfiguration: DeviceConfiguration?) {
         println("Committing changes")
         if (deviceConfiguration != null) {
             deviceConfiguration.mapping.buttons = this.buttonBindings
