@@ -7,7 +7,6 @@ import com.github.kwhat.jnativehook.mouse.NativeMouseEvent
 import com.github.kwhat.jnativehook.mouse.NativeMouseListener
 import com.github.kwhat.jnativehook.mouse.NativeMouseWheelEvent
 import com.github.kwhat.jnativehook.mouse.NativeMouseWheelListener
-import dev.villanueva.userland_utility.products.Configuration
 import dev.villanueva.userland_utility.products.DeviceConfiguration
 import dev.villanueva.userland_utility.products.converters.LinuxInputToFriendlyEvent
 import javafx.application.Platform
@@ -111,7 +110,7 @@ class DecoProView : View(), NativeKeyListener, NativeMouseListener, NativeMouseW
     }
 
     override fun nativeKeyPressed(keyEvent: NativeKeyEvent) {
-        var shiftedKey = LinuxInputToFriendlyEvent.translateShiftedKeys(keyEvent.rawCode, keyEvent.keyCode, keyEvent.keyLocation)
+        val shiftedKey = LinuxInputToFriendlyEvent.translateShiftedKeys(keyEvent.rawCode, keyEvent.keyCode, keyEvent.keyLocation)
 
         if (shiftedKey == null) {
             println("Unknown shifted/raw key ${keyEvent.keyCode}/${keyEvent.rawCode}")
@@ -180,7 +179,7 @@ class DecoProView : View(), NativeKeyListener, NativeMouseListener, NativeMouseW
                         LinuxInputToFriendlyEvent.getMouseDisplayName(it) ?: "UNKNOWN"
                     }
 
-                    thisButton.text = listOf(keyPressedString, mousePressedString).filter { !it.isNullOrEmpty() }.joinToString(separator = "+")
+                    thisButton.text = listOf(keyPressedString, mousePressedString).filter { it.isNotEmpty() }.joinToString(separator = "+")
                     controller.updateMapping(itemType, referenceId, keysPressed, matchValue, MappableItemType.Button)
                     controller.updateMapping(itemType, referenceId, mousePressed, matchValue, MappableItemType.Mouse)
                     keysPressed.clear()

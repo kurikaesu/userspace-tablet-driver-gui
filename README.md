@@ -4,7 +4,7 @@ I need a better name for this!
 
 This is a new GUI implementation for the userland driver I've written here: https://github.com/kurikaesu/xp-pen-userland
 
-The code is really really messy right now. Seriously messy.
+The code is really, really messy right now. Seriously messy.
 
 **It currently only supports the Deco Pro Small and no other device.**
 

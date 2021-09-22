@@ -6,16 +6,16 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
 class DriverPacketHandler(
-    val direction: Int,
-    val vendor: Short,
-    val device: Short,
-    val iface: Short,
-    val length: Long,
-    val expectResponse: Boolean,
-    val responseLength: Long,
-    val responseInterface: Short,
-    val originatingSocket: Int,
-    val signature: Long? = getCurrentSignature(),
+    private val direction: Int,
+    private val vendor: Short,
+    private val device: Short,
+    private val iface: Short,
+    private val length: Long,
+    private val expectResponse: Boolean,
+    private val responseLength: Long,
+    private val responseInterface: Short,
+    private val originatingSocket: Int,
+    private val signature: Long? = getCurrentSignature(),
     val data: ByteArray? = null,
 ) {
     fun writeToOutputStream(outputStream: OutputStream) {
@@ -25,7 +25,6 @@ class DriverPacketHandler(
         buffer.putShort(vendor)
         buffer.putShort(device)
         buffer.putLong(iface.toLong())
-        // This is an alignment buffer
         buffer.putLong(length)
         if (expectResponse)
             buffer.putLong(0x01)
@@ -40,14 +39,9 @@ class DriverPacketHandler(
         }
         buffer.flip()
 
-        println(buffer.array().size)
-        println(buffer.array().toHex())
-
         outputStream.write(buffer.array())
         outputStream.flush()
     }
-
-    fun ByteArray.toHex(): String = joinToString(separator = ", ") { eachByte -> "0x%02x".format(eachByte) }
 
     companion object {
         fun readFromInputStream(inputStream: InputStream): DriverPacketHandler? {
