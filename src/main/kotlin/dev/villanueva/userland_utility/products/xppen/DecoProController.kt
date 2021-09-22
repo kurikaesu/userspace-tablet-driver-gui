@@ -2,14 +2,13 @@ package dev.villanueva.userland_utility.products.xppen
 
 import dev.villanueva.userland_utility.iterop.DriverPackets
 import dev.villanueva.userland_utility.iterop.DriverSocket
-import dev.villanueva.userland_utility.products.Configuration
-import dev.villanueva.userland_utility.products.DeviceConfiguration
-import dev.villanueva.userland_utility.products.Product
+import dev.villanueva.userland_utility.products.config.Configuration
+import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import tornadofx.Controller
 
-class DecoProController : Controller(), Product {
+class DecoProController : Controller() {
     val mapItems: ObservableList<MappableItem> = FXCollections.observableArrayList()
     private val buttonBindings: HashMap<String, HashMap<String, HashSet<Int>>> = HashMap()
     private val dialBindings: HashMap<String, HashMap<String, HashMap<String, HashSet<Int>>>> = HashMap()
@@ -59,7 +58,7 @@ class DecoProController : Controller(), Product {
             deviceConfiguration.mapping.dials = this.dialBindings
 
             val existingConfig = Configuration.readConfig()
-            existingConfig.deviceConfigurations["10429"]!![getProductIdAsString()] = deviceConfiguration
+            existingConfig.deviceConfigurations[getVendorIdAsString()]!![getProductIdAsString()] = deviceConfiguration
             existingConfig.writeConfig()
 
             if (DriverSocket.connected) {
@@ -68,11 +67,29 @@ class DecoProController : Controller(), Product {
         }
     }
 
-    override fun getProductId(): Short {
-        return 2313
-    }
+    companion object {
+        fun getProductId(): Short {
+            return 2313
+        }
 
-    override fun getProductIdAsString(): String {
-        return getProductId().toString()
+        fun getVendorId(): Short {
+            return 10429
+        }
+
+        fun getProductIdAsString(): String {
+            return getProductId().toString()
+        }
+
+        fun getVendorIdAsString(): String {
+            return getVendorId().toString()
+        }
+
+        fun getVendorProductString(): String {
+            return "${getVendorId()}:${getProductId()}"
+        }
+
+        fun getProductName(): String {
+            return "XP-Pen Deco Pro Small"
+        }
     }
 }

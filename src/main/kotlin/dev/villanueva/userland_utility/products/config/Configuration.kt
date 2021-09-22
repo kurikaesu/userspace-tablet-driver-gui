@@ -1,4 +1,4 @@
-package dev.villanueva.userland_utility.products
+package dev.villanueva.userland_utility.products.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import java.io.File
@@ -6,7 +6,7 @@ import java.io.File
 class Configuration {
     var deviceConfigurations: HashMap<String,
         HashMap<String,
-            DeviceConfiguration>
+                DeviceConfiguration>
             > = HashMap()
 
     fun writeConfig() {

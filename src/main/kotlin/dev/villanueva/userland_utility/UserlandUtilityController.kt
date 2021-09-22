@@ -3,8 +3,9 @@ package dev.villanueva.userland_utility
 import dev.villanueva.userland_utility.iterop.DriverPacketHandler
 import dev.villanueva.userland_utility.iterop.DriverPackets
 import dev.villanueva.userland_utility.iterop.DriverSocket
-import dev.villanueva.userland_utility.products.Configuration
-import dev.villanueva.userland_utility.products.DeviceConfiguration
+import dev.villanueva.userland_utility.products.config.Configuration
+import dev.villanueva.userland_utility.products.config.DeviceConfiguration
+import dev.villanueva.userland_utility.products.SupportedProducts
 import tornadofx.Controller
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -25,10 +26,7 @@ class UserlandUtilityController: Controller() {
                     val vendor = responseBuffer.short
                     val product = responseBuffer.short
 
-                    val vendorString = String.format("%d", vendor)
-                    val productString = String.format("%d", product)
-                    println("Vendor $vendorString and product $productString")
-                    connectedDevices.add("$vendorString:$productString")
+                    connectedDevices.add(SupportedProducts.getNameOfProduct(vendor, product))
                 }
             } else {
                 println("Did not get a response from the driver")
@@ -39,7 +37,8 @@ class UserlandUtilityController: Controller() {
     }
 
     fun getConfigForDevice(deviceName: String): DeviceConfiguration? {
-        val parts = deviceName.split(":")
+        val productId = SupportedProducts.getProductIdFromName(deviceName)
+        val parts = productId.split(":")
         val config = Configuration.readConfig()
         val vendorConfig = config.deviceConfigurations[parts[0]]
         if (vendorConfig != null) {

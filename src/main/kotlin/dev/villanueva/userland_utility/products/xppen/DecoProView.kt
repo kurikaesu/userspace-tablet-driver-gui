@@ -7,7 +7,8 @@ import com.github.kwhat.jnativehook.mouse.NativeMouseEvent
 import com.github.kwhat.jnativehook.mouse.NativeMouseListener
 import com.github.kwhat.jnativehook.mouse.NativeMouseWheelEvent
 import com.github.kwhat.jnativehook.mouse.NativeMouseWheelListener
-import dev.villanueva.userland_utility.products.DeviceConfiguration
+import dev.villanueva.userland_utility.products.ProductView
+import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 import dev.villanueva.userland_utility.products.converters.LinuxInputToFriendlyEvent
 import javafx.application.Platform
 import javafx.scene.control.Button
@@ -19,7 +20,7 @@ import tornadofx.field
 import tornadofx.button
 import tornadofx.action
 
-class DecoProView : View(), NativeKeyListener, NativeMouseListener, NativeMouseWheelListener {
+class DecoProView : ProductView(), NativeKeyListener, NativeMouseListener, NativeMouseWheelListener {
     private val controller: DecoProController by inject()
     val deviceConfiguration: DeviceConfiguration? by param()
 
@@ -82,11 +83,6 @@ class DecoProView : View(), NativeKeyListener, NativeMouseListener, NativeMouseW
                 }
             }
         }
-    }
-
-    override fun onDock() {
-        println("Docking!")
-
     }
 
     private fun onKeyPressedFun(thisButton: Button, itemType: MappableItemType, referenceId: Int, matchValue: Int) {

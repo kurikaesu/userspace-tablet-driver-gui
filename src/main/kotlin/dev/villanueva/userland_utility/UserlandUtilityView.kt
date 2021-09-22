@@ -1,10 +1,13 @@
 package dev.villanueva.userland_utility
 
-import dev.villanueva.userland_utility.products.DeviceConfiguration
+import dev.villanueva.userland_utility.products.ProductView
+import dev.villanueva.userland_utility.products.config.DeviceConfiguration
+import dev.villanueva.userland_utility.products.SupportedProducts
 import dev.villanueva.userland_utility.products.xppen.DecoProView
 import javafx.scene.control.ListView
 import javafx.scene.control.SelectionMode
 import tornadofx.*
+import kotlin.reflect.KClass
 
 class UserlandUtilityView : View() {
     private val controller: UserlandUtilityController by inject()
@@ -28,7 +31,15 @@ class UserlandUtilityView : View() {
         }
         button("Load Configuration") {
             action {
-                find<DecoProView>(mapOf(DecoProView::deviceConfiguration to selectedConfig)).openWindow()
+                if (listView != null && listView?.selectedItem != null) {
+                    val view = SupportedProducts.getViewForProduct(listView?.selectedItem!!)
+                    if (view != null) {
+                        find(
+                            view,
+                            mapOf(DecoProView::deviceConfiguration to selectedConfig)
+                        ).openWindow()
+                    }
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package dev.villanueva.userland_utility.products
+package dev.villanueva.userland_utility.products.config
 
 class MappingConfiguration {
     var buttons: HashMap<String,
