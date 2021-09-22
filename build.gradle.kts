@@ -1,9 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
     kotlin("jvm") version "1.5.10"
     application
     id("org.openjfx.javafxplugin") version "0.0.10"
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 group = "me.kurikaesu"
@@ -22,7 +24,7 @@ javafx {
 }
 
 application {
-    mainClass.set("dev.villanueva.userland_utility.UserlandUtility")
+    mainClass.set("dev.villanueva.userland_utility.MainKt")
 }
 
 dependencies {
@@ -40,4 +42,8 @@ tasks.test {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "16"
+}
+
+tasks.withType<ShadowJar> {
+    archiveFileName.set("xp-pen-userland-utility.jar")
 }

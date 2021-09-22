@@ -1,0 +1,3 @@
+#!/bin/sh
+
+java -jar /usr/local/lib/xp-pen-userland-utility/xp-pen-userland-utility.jar

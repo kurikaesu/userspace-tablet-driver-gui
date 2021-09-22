@@ -18,4 +18,10 @@ class UserlandUtility : App(UserlandUtilityView::class){
         GlobalScreen.unregisterNativeHook()
         super.stop()
     }
+
+    companion object {
+        fun main(args: Array<String>) {
+            launch(UserlandUtility::class.java, *args)
+        }
+    }
 }

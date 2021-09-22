@@ -1,0 +1,11 @@
+Source: xp-pen-userland-util
+Section: java
+Priority: optional
+Maintainer: Aren Villanueva <arenvillanueva@yomogi-soft.com>
+Build-Depends: debhelper (>= 10), gradle-debian-helper
+Package: xp-pen-userland-util
+Architecture: amd64
+Depends: openjdk-16-jre
+Description: Config util
+Version: 0.1.0
+
