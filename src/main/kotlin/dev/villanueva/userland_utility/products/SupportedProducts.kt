@@ -1,6 +1,8 @@
 package dev.villanueva.userland_utility.products
 
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
+import dev.villanueva.userland_utility.products.huion.wh1409v2.WH1409v2Controller
+import dev.villanueva.userland_utility.products.huion.wh1409v2.WH1409v2View
 import dev.villanueva.userland_utility.products.xppen.deco.Deco01v2Controller
 import dev.villanueva.userland_utility.products.xppen.deco.Deco01v2View
 import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProSmallController
@@ -15,17 +17,23 @@ object SupportedProducts {
     private val viewDeviceConfigurationMap: MutableMap<String, KProperty1<out ProductView, DeviceConfiguration?>> = HashMap()
 
     init {
-        // Deco Pro Small
+        // XP-Pen Deco Pro Small
         productToClassMap[DecoProSmallController.getProductName()] = DecoProSmallView::class
         nameToProductIdMap[DecoProSmallController.getProductName()] = DecoProSmallController.getVendorProductString()
         productIdToName[DecoProSmallController.getVendorProductString()] = DecoProSmallController.getProductName()
         viewDeviceConfigurationMap[DecoProSmallController.getProductName()] = DecoProSmallView::deviceConfiguration
 
-        // Deco 01v2
+        // XP-Pen Deco 01v2
         productToClassMap[Deco01v2Controller.getProductName()] = Deco01v2View::class
         nameToProductIdMap[Deco01v2Controller.getProductName()] = DecoProSmallController.getVendorProductString()
         productIdToName[Deco01v2Controller.getVendorProductString()] = Deco01v2Controller.getProductName()
         viewDeviceConfigurationMap[Deco01v2Controller.getProductName()] = Deco01v2View::deviceConfiguration
+
+        // Huion WH1409 v2
+        productToClassMap[WH1409v2Controller.getProductName()] = WH1409v2View::class
+        nameToProductIdMap[WH1409v2Controller.getProductName()] = WH1409v2Controller.getVendorProductString()
+        productIdToName[WH1409v2Controller.getVendorProductString()] = WH1409v2Controller.getProductName()
+        viewDeviceConfigurationMap[WH1409v2Controller.getProductName()] = WH1409v2View::deviceConfiguration
     }
 
     fun getViewForProduct(product: String): KClass<out ProductView>? {
