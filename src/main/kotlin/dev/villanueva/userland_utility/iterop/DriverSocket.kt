@@ -12,7 +12,7 @@ object DriverSocket {
     private val sock: AFUNIXSocket = AFUNIXSocket.newInstance()
 
     init {
-        val sockPath = "${System.getenv("HOME")}/.local/var/run/xp_pen_userland.sock"
+        val sockPath = "${System.getenv("HOME")}/.local/var/run/userspace_tablet_driver_daemon.sock"
         val sockFile = File(sockPath)
         var success = false
 

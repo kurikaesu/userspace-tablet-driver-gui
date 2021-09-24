@@ -17,7 +17,7 @@ class Configuration {
     }
 
     companion object {
-        private val configFilePath = "${System.getenv("HOME")}/.local/share/xp_pen_userland/driver.cfg"
+        private val configFilePath = "${System.getenv("HOME")}/.local/share/userspace_tablet_driver_daemon/driver.cfg"
 
         fun readConfig(): Configuration {
             val configFile = File(configFilePath)

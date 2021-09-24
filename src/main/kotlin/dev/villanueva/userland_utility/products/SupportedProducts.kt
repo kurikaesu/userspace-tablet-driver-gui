@@ -37,7 +37,7 @@ object SupportedProducts {
     }
 
     fun getNameOfProduct(vendorId: Short, productId: Short): String {
-        return productIdToName["$vendorId:$productId"] ?: "Unknown device"
+        return productIdToName["$vendorId:$productId"] ?: "Unknown device $vendorId:$productId"
     }
 
     fun getConfigPropertyForProduct(deviceName: String): KProperty1<out ProductView, DeviceConfiguration?> {
