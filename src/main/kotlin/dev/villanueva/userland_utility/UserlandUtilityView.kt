@@ -23,12 +23,14 @@ class UserlandUtilityView : View() {
             }
         }
         button("Refresh devices") {
+            useMaxWidth = true
             action {
                 listView?.items?.clear()
                 listView?.items?.addAll(controller.getConnectedDevices().toMutableList())
             }
         }
         button("Load Configuration") {
+            useMaxWidth = true
             action {
                 if (listView != null && listView?.selectedItem != null) {
                     val view = SupportedProducts.getViewForProduct(listView?.selectedItem!!)
