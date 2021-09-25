@@ -1,48 +1,36 @@
 package dev.villanueva.userland_utility.products.xppen.deco
 
-import dev.villanueva.userland_utility.iterop.DriverPackets
-import dev.villanueva.userland_utility.iterop.DriverSocket
+import dev.villanueva.userland_utility.products.DriverCodeIDs
+import dev.villanueva.userland_utility.products.MappableItem
 import dev.villanueva.userland_utility.products.MappableItemType
 import dev.villanueva.userland_utility.products.ProductController
 import dev.villanueva.userland_utility.products.config.Configuration
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 
 class Deco01v2Controller : ProductController() {
-    private val buttonBindings: HashMap<String, HashMap<String, HashSet<Int>>> = HashMap()
-
-    override fun updateMapping(itemType: MappableItemType, referenceId: Int, mappedValues: HashSet<Int>, matchValue: Int, mappedItemType: MappableItemType) {
-        val referenceIdString = referenceId.toString()
-        val mappedItemTypeString = mappedItemType.value.toString()
-        if (itemType == MappableItemType.Button) {
-            if (!buttonBindings.containsKey(referenceIdString)) {
-                buttonBindings[referenceIdString] = HashMap()
-            }
-
-            buttonBindings[referenceIdString]!![mappedItemTypeString] = HashSet(mappedValues)
-        }
+    init {
+        mapItems.add(MappableItem(MappableItemType.Button, "K1", DriverCodeIDs.BTN_0.code, 0))
+        mapItems.add(MappableItem(MappableItemType.Button, "K2", DriverCodeIDs.BTN_1.code, 0))
+        mapItems.add(MappableItem(MappableItemType.Button, "K3", DriverCodeIDs.BTN_2.code, 0))
+        mapItems.add(MappableItem(MappableItemType.Button, "K4", DriverCodeIDs.BTN_3.code, 0))
+        mapItems.add(MappableItem(MappableItemType.Button, "K5", DriverCodeIDs.BTN_4.code, 0))
+        mapItems.add(MappableItem(MappableItemType.Button, "K6", DriverCodeIDs.BTN_5.code, 0))
+        mapItems.add(MappableItem(MappableItemType.Button, "K7", DriverCodeIDs.BTN_6.code, 0))
+        mapItems.add(MappableItem(MappableItemType.Button, "K8", DriverCodeIDs.BTN_7.code, 0))
     }
 
-    override fun commitChanges(deviceConfiguration: DeviceConfiguration?) {
-        println("Committing changes")
-        if (deviceConfiguration != null) {
-            deviceConfiguration.mapping.buttons = this.buttonBindings
-
-            val existingConfig = Configuration.readConfig()
-            existingConfig.deviceConfigurations[getVendorIdAsString()]!![getProductIdAsString()] = deviceConfiguration
-            existingConfig.writeConfig()
-
-            if (DriverSocket.connected) {
-                DriverPackets.reloadConfiguration().writeToOutputStream(DriverSocket.getOutputStream()!!)
-            }
-        }
+    override fun updateExistingDeviceConfig(deviceConfiguration: DeviceConfiguration): Configuration {
+        val existingConfig = Configuration.readConfig()
+        existingConfig.deviceConfigurations[getVendorIdAsString()]!![getProductIdAsString()] = deviceConfiguration
+        return existingConfig
     }
 
     companion object {
-        fun getProductId(): Short {
+        private fun getProductId(): Short {
             return 2309
         }
 
-        fun getVendorId(): Short {
+        private fun getVendorId(): Short {
             return 10429
         }
 

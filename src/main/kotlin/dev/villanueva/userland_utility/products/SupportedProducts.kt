@@ -1,6 +1,8 @@
 package dev.villanueva.userland_utility.products
 
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
+import dev.villanueva.userland_utility.products.huion.wh1409_2048.WH1409_2048Controller
+import dev.villanueva.userland_utility.products.huion.wh1409_2048.WH1409_2048View
 import dev.villanueva.userland_utility.products.huion.wh1409v2.WH1409v2Controller
 import dev.villanueva.userland_utility.products.huion.wh1409v2.WH1409v2View
 import dev.villanueva.userland_utility.products.xppen.deco.Deco01v2Controller
@@ -34,6 +36,12 @@ object SupportedProducts {
         nameToProductIdMap[WH1409v2Controller.getProductName()] = WH1409v2Controller.getVendorProductString()
         productIdToName[WH1409v2Controller.getVendorProductString()] = WH1409v2Controller.getProductName()
         viewDeviceConfigurationMap[WH1409v2Controller.getProductName()] = WH1409v2View::deviceConfiguration
+
+        // Huion WH1409 (2048)
+        productToClassMap[WH1409_2048Controller.getProductName()] = WH1409_2048View::class
+        nameToProductIdMap[WH1409_2048Controller.getProductName()] = WH1409_2048Controller.getVendorProductString()
+        productIdToName[WH1409_2048Controller.getVendorProductString()] = WH1409_2048Controller.getProductName()
+        viewDeviceConfigurationMap[WH1409_2048Controller.getProductName()] = WH1409_2048View::deviceConfiguration
     }
 
     fun getViewForProduct(product: String): KClass<out ProductView>? {
