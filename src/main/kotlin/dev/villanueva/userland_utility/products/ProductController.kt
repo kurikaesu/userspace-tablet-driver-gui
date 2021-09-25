@@ -10,6 +10,8 @@ import tornadofx.Controller
 
 abstract class ProductController : Controller() {
     val mapItems: ObservableList<MappableItem> = FXCollections.observableArrayList()
+    val mapLeftItems: ObservableList<MappableItem> = FXCollections.observableArrayList()
+    val mapRightItems: ObservableList<MappableItem> = FXCollections.observableArrayList()
     private val buttonBindings: HashMap<String, HashMap<String, HashSet<Int>>> = HashMap()
     private val dialBindings: HashMap<String, HashMap<String, HashMap<String, HashSet<Int>>>> = HashMap()
 
@@ -42,7 +44,7 @@ abstract class ProductController : Controller() {
         }
     }
 
-    abstract fun updateExistingDeviceConfig(deviceConfig: DeviceConfiguration): Configuration
+    abstract fun updateExistingDeviceConfig(deviceConfiguration: DeviceConfiguration): Configuration
 
     open fun commitChanges(deviceConfiguration: DeviceConfiguration?) {
         println("Committing changes")

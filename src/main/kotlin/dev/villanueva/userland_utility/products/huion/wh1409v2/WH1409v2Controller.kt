@@ -20,7 +20,7 @@ class WH1409v2Controller : ProductController() {
         mapItems.add(MappableItem(MappableItemType.Button, "K9", DriverCodeIDs.BTN_8.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K10", DriverCodeIDs.BTN_9.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K11", DriverCodeIDs.BTN_SOUTH.code, 0))
-        mapItems.add(MappableItem(MappableItemType.Button, "K2", DriverCodeIDs.BTN_EAST.code, 0))
+        mapItems.add(MappableItem(MappableItemType.Button, "K12", DriverCodeIDs.BTN_EAST.code, 0))
     }
 
     override fun updateExistingDeviceConfig(deviceConfiguration: DeviceConfiguration): Configuration {

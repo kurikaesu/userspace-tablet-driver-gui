@@ -7,19 +7,25 @@ import com.github.kwhat.jnativehook.mouse.NativeMouseEvent
 import com.github.kwhat.jnativehook.mouse.NativeMouseListener
 import com.github.kwhat.jnativehook.mouse.NativeMouseWheelEvent
 import com.github.kwhat.jnativehook.mouse.NativeMouseWheelListener
+import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 import dev.villanueva.userland_utility.products.converters.LinuxInputToFriendlyEvent
 import javafx.application.Platform
 import javafx.scene.Parent
 import javafx.scene.control.Button
-import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import tornadofx.View
-import java.awt.event.MouseEvent
+import tornadofx.action
+import tornadofx.fieldset
+import tornadofx.field
+import tornadofx.button
 
 
 open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMouseWheelListener {
     override val root: Parent
         get() = throw NotImplementedError("This class should not be called directly")
+
+    open val deviceName: String by param()
+    open val deviceConfiguration: DeviceConfiguration? by param()
 
     private var numKeysPressed: Int = 0
     private var keysPressed: HashSet<Int> = HashSet()
@@ -142,5 +148,87 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
     override fun nativeMouseWheelMoved(nativeEvent: NativeMouseWheelEvent) {
         mouseWheelRotation = nativeEvent.wheelRotation
         // Not exactly sure what to do with wheels yet
+    }
+
+    private fun createButtonFromMappableItem(parent: Parent, item: MappableItem, controller: ProductController): Unit {
+        with (parent) {
+            button {
+                var labelText = ""
+                if (deviceConfiguration != null) {
+                    if (item.itemType == MappableItemType.Button) {
+                        val buttonMap = deviceConfiguration!!.mapping.buttons[item.driverCode.toString()]
+
+                        if (buttonMap != null) {
+                            val buttonValueString = MappableItemType.Button.value.toString()
+                            if (buttonMap.containsKey((buttonValueString))) {
+                                labelText =
+                                    buttonMap[buttonValueString]!!.joinToString(separator = "+") {
+                                        LinuxInputToFriendlyEvent.getKeyDisplayName(it) ?: "UNKNOWN"
+                                    }
+                                controller.updateMapping(
+                                    item.itemType,
+                                    item.driverCode,
+                                    HashSet(buttonMap[buttonValueString]),
+                                    0,
+                                    MappableItemType.Button
+                                )
+                            }
+                        }
+                    } else if (item.itemType == MappableItemType.Dial) {
+                        val dialMap =
+                            deviceConfiguration!!.mapping.dials[item.driverCode.toString()]
+                        if (dialMap != null) {
+                            val itemMatchValueString = item.matchValue.toString()
+                            if (dialMap.containsKey(itemMatchValueString)) {
+                                val buttonValueString = MappableItemType.Button.value.toString()
+                                if (dialMap[itemMatchValueString]!!.containsKey(buttonValueString)) {
+                                    labelText =
+                                        dialMap[itemMatchValueString]!![buttonValueString]!!.joinToString(
+                                            separator = "+"
+                                        ) {
+                                            LinuxInputToFriendlyEvent.getKeyDisplayName(it)
+                                                ?: "UNKNOWN"
+                                        }
+                                    controller.updateMapping(
+                                        item.itemType,
+                                        item.driverCode,
+                                        HashSet(dialMap[itemMatchValueString]!![buttonValueString]),
+                                        item.matchValue,
+                                        MappableItemType.Button
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    text = labelText
+
+                    action {
+                        onKeyPressedFun(
+                            this,
+                            controller,
+                            item.itemType,
+                            item.driverCode,
+                            item.matchValue
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    fun createFieldSetFromIterator(parent: Parent, itemIterator: MutableListIterator<MappableItem>, controller: ProductController): Unit {
+        with (parent) {
+            fieldset {
+                while (itemIterator.hasNext()) {
+                    val item = itemIterator.next()
+                    field(item.itemName) {
+                        if (item.itemType == MappableItemType.Button || item.itemType == MappableItemType.Dial) {
+                            createButtonFromMappableItem(this, item, controller)
+                        }
+                    }
+                }
+            }
+        }
     }
 }

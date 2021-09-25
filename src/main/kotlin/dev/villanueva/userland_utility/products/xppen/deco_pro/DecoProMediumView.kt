@@ -2,8 +2,8 @@ package dev.villanueva.userland_utility.products.xppen.deco_pro
 
 import dev.villanueva.userland_utility.products.ProductSingleSideShortcutsView
 
-class DecoProSmallView : ProductSingleSideShortcutsView() {
-    private val myController: DecoProSmallController by inject()
+class DecoProMediumView : ProductSingleSideShortcutsView() {
+    private val myController: DecoProMediumController by inject()
 
     init {
         super.controller = myController

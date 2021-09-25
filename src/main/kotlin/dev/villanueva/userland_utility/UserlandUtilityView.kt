@@ -1,5 +1,6 @@
 package dev.villanueva.userland_utility
 
+import dev.villanueva.userland_utility.products.ProductView
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 import dev.villanueva.userland_utility.products.SupportedProducts
 import javafx.scene.control.ListView
@@ -14,6 +15,7 @@ class UserlandUtilityView : View() {
     private var selectedConfig: DeviceConfiguration? = null
 
     override val root = form {
+        title = "Connected devices"
         listView = listview(connectedDevices.asObservable()) {
             selectionModel.selectionMode = SelectionMode.SINGLE
             onUserSelect(1) {
@@ -33,7 +35,9 @@ class UserlandUtilityView : View() {
                     if (view != null) {
                         find(
                             view,
-                            mapOf(SupportedProducts.getConfigPropertyForProduct(listView?.selectedItem!!) to selectedConfig)
+                            mapOf(
+                                SupportedProducts.getConfigPropertyForProduct(listView?.selectedItem!!) to selectedConfig,
+                                ProductView::deviceName to listView?.selectedItem)
                         ).openWindow()
                     }
                 }
