@@ -28,10 +28,10 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
     open val deviceConfiguration: DeviceConfiguration? by param()
 
     private var numKeysPressed: Int = 0
-    private var keysPressed: HashSet<Int> = HashSet()
-    private var keysReleased: HashSet<Int> = HashSet()
-    private var mousePressed: HashSet<Int> = HashSet()
-    private var mouseReleased: HashSet<Int> = HashSet()
+    private var keysPressed: LinkedHashSet<Int> = LinkedHashSet()
+    private var keysReleased: LinkedHashSet<Int> = LinkedHashSet()
+    private var mousePressed: LinkedHashSet<Int> = LinkedHashSet()
+    private var mouseReleased: LinkedHashSet<Int> = LinkedHashSet()
     private var mouseWheelRotation: Int = 0
 
     var keyReleasedEventFunction: (it: NativeKeyEvent) -> Unit = {}
@@ -168,7 +168,7 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
                                 controller.updateMapping(
                                     item.itemType,
                                     item.driverCode,
-                                    HashSet(buttonMap[buttonValueString]),
+                                    LinkedHashSet(buttonMap[buttonValueString]),
                                     0,
                                     MappableItemType.Button
                                 )
@@ -192,7 +192,7 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
                                     controller.updateMapping(
                                         item.itemType,
                                         item.driverCode,
-                                        HashSet(dialMap[itemMatchValueString]!![buttonValueString]),
+                                        LinkedHashSet(dialMap[itemMatchValueString]!![buttonValueString]),
                                         item.matchValue,
                                         MappableItemType.Button
                                     )

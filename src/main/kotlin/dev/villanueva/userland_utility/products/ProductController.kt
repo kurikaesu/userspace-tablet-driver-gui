@@ -12,13 +12,13 @@ abstract class ProductController : Controller() {
     val mapItems: ObservableList<MappableItem> = FXCollections.observableArrayList()
     val mapLeftItems: ObservableList<MappableItem> = FXCollections.observableArrayList()
     val mapRightItems: ObservableList<MappableItem> = FXCollections.observableArrayList()
-    private val buttonBindings: HashMap<String, HashMap<String, HashSet<Int>>> = HashMap()
-    private val dialBindings: HashMap<String, HashMap<String, HashMap<String, HashSet<Int>>>> = HashMap()
+    private val buttonBindings: HashMap<String, HashMap<String, LinkedHashSet<Int>>> = HashMap()
+    private val dialBindings: HashMap<String, HashMap<String, HashMap<String, LinkedHashSet<Int>>>> = HashMap()
 
     open fun updateMapping(
         itemType: MappableItemType,
         referenceId: Int,
-        mappedValues: HashSet<Int>,
+        mappedValues: LinkedHashSet<Int>,
         matchValue: Int,
         mappedItemType: MappableItemType) {
 
@@ -29,7 +29,7 @@ abstract class ProductController : Controller() {
                 buttonBindings[referenceIdString] = HashMap()
             }
 
-            buttonBindings[referenceIdString]!![mappedItemTypeString] = HashSet(mappedValues)
+            buttonBindings[referenceIdString]!![mappedItemTypeString] = LinkedHashSet(mappedValues)
         } else if (itemType == MappableItemType.Dial) {
             val matchValueString = matchValue.toString()
             if (!dialBindings.containsKey(referenceIdString)) {
@@ -40,7 +40,7 @@ abstract class ProductController : Controller() {
                 dialBindings[referenceIdString]!![matchValueString] = HashMap()
             }
 
-            dialBindings[referenceIdString]!![matchValueString]!![mappedItemTypeString] = HashSet(mappedValues)
+            dialBindings[referenceIdString]!![matchValueString]!![mappedItemTypeString] = LinkedHashSet(mappedValues)
         }
     }
 
