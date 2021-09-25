@@ -11,7 +11,11 @@ import dev.villanueva.userland_utility.products.converters.LinuxInputToFriendlyE
 import javafx.application.Platform
 import javafx.scene.Parent
 import javafx.scene.control.Button
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyEvent
 import tornadofx.View
+import java.awt.event.MouseEvent
+
 
 open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMouseWheelListener {
     override val root: Parent
@@ -26,7 +30,9 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
 
     var keyReleasedEventFunction: (it: NativeKeyEvent) -> Unit = {}
     var mouseReleasedEventFunction: (it: NativeMouseEvent) -> Unit = {}
-
+    private val preventKeyPressFilter: (it: KeyEvent) -> Unit = {
+        it.consume()
+    }
 
     protected fun onKeyPressedFun(thisButton: Button, controller: ProductController, itemType: MappableItemType, referenceId: Int, matchValue: Int) {
         if (numKeysPressed != 0) {
@@ -46,6 +52,8 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
         GlobalScreen.addNativeKeyListener(this)
         GlobalScreen.addNativeMouseListener(this)
         GlobalScreen.addNativeMouseWheelListener(this)
+
+        thisButton.addEventFilter(KeyEvent.KEY_PRESSED, preventKeyPressFilter)
     }
 
     override fun nativeKeyPressed(keyEvent: NativeKeyEvent) {
@@ -105,6 +113,7 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
 
     private fun handleAllKeysUp(controller: ProductController, thisButton: Button, itemType: MappableItemType, referenceId: Int, matchValue: Int) {
         if (numKeysPressed <= 0) {
+            thisButton.removeEventFilter(KeyEvent.KEY_PRESSED, preventKeyPressFilter)
             GlobalScreen.removeNativeKeyListener(this)
             GlobalScreen.removeNativeMouseListener(this)
             GlobalScreen.removeNativeMouseWheelListener(this)
