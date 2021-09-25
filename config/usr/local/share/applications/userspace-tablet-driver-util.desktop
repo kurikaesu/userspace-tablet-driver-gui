@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Userspace Tablet Driver Utility
+Comment=Kuri's Userspace Tablet Driver Utility.
+Exec=userspace-tablet-driver-utility
+Type=Application
+Categories=Development;IDE;

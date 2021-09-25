@@ -45,5 +45,5 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.withType<ShadowJar> {
-    archiveFileName.set("xp-pen-userland-utility.jar")
+    archiveFileName.set("userspace-tablet-driver-utility.jar")
 }

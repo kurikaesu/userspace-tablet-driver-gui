@@ -1,16 +1,16 @@
 #!/bin/sh
 
 ./gradlew shadowJar
-mkdir -p "deb-build/xp-pen-userland-utility"
-cp -r DEBIAN "deb-build/xp-pen-userland-utility"
-
-mkdir -p "deb-build/xp-pen-userland-utility/usr/local/lib/xp-pen-userland-utility"
-cp build/libs/*.jar "deb-build/xp-pen-userland-utility/usr/local/lib/xp-pen-userland-utility"
-cp -r config/* "deb-build/xp-pen-userland-utility/"
+mkdir -p "deb-build/userspace-tablet-driver-utility"
+cp -r DEBIAN "deb-build/userspace-tablet-driver-utility"
+X
+mkdir -p "deb-build/userspace-tablet-driver-utility/usr/local/lib/userspace-tablet-driver-utility"
+cp build/libs/*.jar "deb-build/userspace-tablet-driver-utility/usr/local/lib/userspace-tablet-driver-utility"
+cp -r config/* "deb-build/userspace-tablet-driver-utility/"
 
 cd deb-build
-dpkg-deb --build xp-pen-userland-utility
-mv xp-pen-userland-utility.deb ..
+dpkg-deb --build userspace-tablet-driver-utility
+mv userspace-tablet-driver-utility.deb ..
 
 cd ..
 rm -rf deb-build

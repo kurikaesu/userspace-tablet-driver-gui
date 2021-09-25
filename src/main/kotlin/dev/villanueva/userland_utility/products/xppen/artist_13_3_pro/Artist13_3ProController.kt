@@ -13,14 +13,12 @@ class Artist13_3ProController : ProductController() {
         mapItems.add(MappableItem(MappableItemType.Button, "K2", DriverCodeIDs.BTN_1.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K3", DriverCodeIDs.BTN_2.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K4", DriverCodeIDs.BTN_3.code, 0))
-        mapItems.add(MappableItem(MappableItemType.Button, "K5", DriverCodeIDs.BTN_4.code, 0))
         mapItems.add(MappableItem(MappableItemType.Dial, "Dial -> Left", DriverCodeIDs.REL_WHEEL.code, -1))
         mapItems.add(MappableItem(MappableItemType.Dial, "Dial -> Right", DriverCodeIDs.REL_WHEEL.code, 1))
+        mapItems.add(MappableItem(MappableItemType.Button, "K5", DriverCodeIDs.BTN_4.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K6", DriverCodeIDs.BTN_5.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K7", DriverCodeIDs.BTN_6.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K8", DriverCodeIDs.BTN_7.code, 0))
-        mapItems.add(MappableItem(MappableItemType.Button, "K9", DriverCodeIDs.BTN_8.code, 0))
-        mapItems.add(MappableItem(MappableItemType.Button, "K10", DriverCodeIDs.BTN_9.code, 0))
     }
 
     override fun updateExistingDeviceConfig(deviceConfiguration: DeviceConfiguration): Configuration {

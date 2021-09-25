@@ -1,0 +1,3 @@
+#!/bin/sh
+
+java -jar /usr/local/lib/userspace-tablet-driver-utility/userspace-tablet-driver-utility.jar

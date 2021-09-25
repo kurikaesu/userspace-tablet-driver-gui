@@ -1,6 +1,0 @@
-[Desktop Entry]
-Name=XP-Pen Userland Utility
-Comment=Kuri's XP-Pen Userland driver utility.
-Exec=xppen-userland-util
-Type=Application
-Categories=Development;IDE;
