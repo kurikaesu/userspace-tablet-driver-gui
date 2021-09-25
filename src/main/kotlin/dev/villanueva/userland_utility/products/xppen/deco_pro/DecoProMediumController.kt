@@ -1,26 +1,11 @@
 package dev.villanueva.userland_utility.products.xppen.deco_pro
 
-import dev.villanueva.userland_utility.products.DriverCodeIDs
-import dev.villanueva.userland_utility.products.MappableItem
-import dev.villanueva.userland_utility.products.MappableItemType
-import dev.villanueva.userland_utility.products.ProductController
 import dev.villanueva.userland_utility.products.config.Configuration
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 
-class DecoProMediumController : ProductController() {
-    init {
-        mapItems.add(MappableItem(MappableItemType.Button, "K1", DriverCodeIDs.BTN_0.code, 0))
-        mapItems.add(MappableItem(MappableItemType.Button, "K2", DriverCodeIDs.BTN_1.code, 0))
-        mapItems.add(MappableItem(MappableItemType.Button, "K3", DriverCodeIDs.BTN_2.code, 0))
-        mapItems.add(MappableItem(MappableItemType.Button, "K4", DriverCodeIDs.BTN_3.code, 0))
-        mapItems.add(MappableItem(MappableItemType.Dial, "Outer Dial -> Left", DriverCodeIDs.REL_WHEEL.code, -1))
-        mapItems.add(MappableItem(MappableItemType.Dial, "Outer Dial -> Right", DriverCodeIDs.REL_WHEEL.code, 1))
-        mapItems.add(MappableItem(MappableItemType.Dial, "Inner Dial -> Left", DriverCodeIDs.REL_HWHEEL.code, -1))
-        mapItems.add(MappableItem(MappableItemType.Dial, "Inner Dial -> Right", DriverCodeIDs.REL_HWHEEL.code, 1))
-        mapItems.add(MappableItem(MappableItemType.Button, "K5", DriverCodeIDs.BTN_4.code, 0))
-        mapItems.add(MappableItem(MappableItemType.Button, "K6", DriverCodeIDs.BTN_5.code, 0))
-        mapItems.add(MappableItem(MappableItemType.Button, "K7", DriverCodeIDs.BTN_6.code, 0))
-        mapItems.add(MappableItem(MappableItemType.Button, "K8", DriverCodeIDs.BTN_7.code, 0))
+class DecoProMediumController : DecoProController() {
+    fun setTouchPadToSetting(setting: Int) {
+        setTouchPadToSettingForProduct(getProductId(), setting)
     }
 
     override fun updateExistingDeviceConfig(deviceConfiguration: DeviceConfiguration): Configuration {

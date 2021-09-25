@@ -40,7 +40,7 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
         it.consume()
     }
 
-    protected fun onKeyPressedFun(thisButton: Button, controller: ProductController, itemType: MappableItemType, referenceId: Int, matchValue: Int) {
+    private fun onKeyPressedFun(thisButton: Button, controller: ProductController, itemType: MappableItemType, referenceId: Int, matchValue: Int) {
         if (numKeysPressed != 0) {
             return
         }
@@ -150,7 +150,7 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
         // Not exactly sure what to do with wheels yet
     }
 
-    private fun createButtonFromMappableItem(parent: Parent, item: MappableItem, controller: ProductController): Unit {
+    private fun createButtonFromMappableItem(parent: Parent, item: MappableItem, controller: ProductController) {
         with (parent) {
             button {
                 var labelText = ""
@@ -217,7 +217,7 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
         }
     }
 
-    fun createFieldSetFromIterator(parent: Parent, itemIterator: MutableListIterator<MappableItem>, controller: ProductController): Unit {
+    fun createFieldSetFromIterator(parent: Parent, itemIterator: MutableListIterator<MappableItem>, controller: ProductController) {
         with (parent) {
             fieldset {
                 while (itemIterator.hasNext()) {

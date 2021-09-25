@@ -44,7 +44,9 @@ abstract class ProductController : Controller() {
         }
     }
 
-    abstract fun updateExistingDeviceConfig(deviceConfiguration: DeviceConfiguration): Configuration
+    open fun updateExistingDeviceConfig(deviceConfiguration: DeviceConfiguration): Configuration {
+        return Configuration()
+    }
 
     open fun commitChanges(deviceConfiguration: DeviceConfiguration?) {
         println("Committing changes")

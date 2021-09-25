@@ -3,14 +3,12 @@ package dev.villanueva.userland_utility
 import dev.villanueva.userland_utility.iterop.DriverPacketHandler
 import dev.villanueva.userland_utility.iterop.DriverPackets
 import dev.villanueva.userland_utility.iterop.DriverSocket
-import dev.villanueva.userland_utility.products.ProductController
 import dev.villanueva.userland_utility.products.config.Configuration
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 import dev.villanueva.userland_utility.products.SupportedProducts
 import tornadofx.Controller
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
-import kotlin.reflect.full.primaryConstructor
 
 class UserlandUtilityController: Controller() {
     private val connectedDevices: HashSet<String> = HashSet()
