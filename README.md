@@ -6,7 +6,11 @@ This is a new GUI implementation for the userland driver I've written here: http
 
 The code is really, really messy right now. Seriously messy.
 
-**It currently only supports the Deco Pro Small and no other device.**
+### Supports
+- XP-Pen Deco Pro Small
+- XP-Pen Deco 01 v2
+- Huion WH1409 v2
+- Huion WH1409 (2048)
 
 The python GUI will no longer be updates as there are severe limitations on assigning keys to it due to the library I used (pynput).
 
