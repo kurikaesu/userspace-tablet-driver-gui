@@ -1,7 +1,116 @@
 package dev.villanueva.userland_utility.products.converters
 
+import java.io.File
+import java.util.concurrent.TimeUnit
+
 class LinuxInputToFriendlyEvent {
     companion object {
+        private val evdevKeyMap: HashMap<Int, String> = HashMap()
+        private val reverseEvdevKeyMap: HashMap<String, Int> = HashMap()
+        private val evdevToKey: HashMap<String, String> = HashMap()
+
+        init {
+            val evdevKeycodeFilePath = "/usr/share/X11/xkb/keycodes/evdev"
+            val evdevKeycodeFile = File(evdevKeycodeFilePath)
+            val evdevLines = evdevKeycodeFile.inputStream().reader().readLines()
+
+            val configLineRegex = Regex("([<>\\w]+) ?= ?([0-9]+);")
+            val aliasedConfigLineRegex = Regex("alias ([<>\\w]+) ?= ?([<>\\w]+);")
+
+            // Go through each line looking for assignments
+            for (line in evdevLines) {
+                if (!line.trim().startsWith("//")) {
+                    val matchResult = configLineRegex.find(line)
+                    if (matchResult != null) {
+                        val (keySym, code) = matchResult.destructured
+                        evdevKeyMap[code.toInt()] = keySym
+                        reverseEvdevKeyMap[keySym] = code.toInt()
+                    }
+
+                    val aliasedResult = aliasedConfigLineRegex.find(line)
+                    if (aliasedResult != null) {
+                        val (keySym, alias) = aliasedResult.destructured
+                        if (reverseEvdevKeyMap.containsKey(alias)) {
+                            val evdevKey = reverseEvdevKeyMap[alias]
+                            evdevKeyMap[evdevKey!!] = keySym
+                            reverseEvdevKeyMap[keySym] = evdevKey
+                        }
+                    }
+                }
+            }
+
+            // Get the current keyboard layout
+            val layoutString = "setxkbmap -query".runCommand()
+            var layout = "us"
+            if (layoutString != null) {
+                val layoutLineRegex = Regex("layout:\\W+[\\w,]+")
+                val matchResult = layoutLineRegex.find(layoutString)
+                if (matchResult != null) {
+                    val parts = matchResult.value.replace(" ", "").split(":")
+                    layout = parts[1].split(",")[0]
+                }
+            }
+
+            // Take the symbol config
+            val symbolKeycodeFilePath = "/usr/share/X11/xkb/symbols/$layout"
+            val symbolKeycodeFile = File(symbolKeycodeFilePath)
+            val symbolKeycodeLines = symbolKeycodeFile.inputStream().reader().readLines()
+
+            val symbolLineRegex = Regex("key ([<>\\w]+) ?\\{([\\[ \\w,\\t\\]]+)};")
+            var foundSection = false
+            for (line in symbolKeycodeLines) {
+                // Search for the symbol section first
+                if (!foundSection) {
+                    if (line.startsWith("xkb_symbols") && line.contains("common")) {
+                        foundSection = true
+                    } else {
+                        continue
+                    }
+                }
+
+                // Check to see if we have hit a different section. If so, bail out
+                if ((line.startsWith("xkb_symbols") && !line.contains("common")) || line.startsWith("partial")) {
+                    break
+                }
+
+                val matchResult = symbolLineRegex.find(line)
+                if (matchResult != null) {
+                    val (keySym, binding) = matchResult.destructured
+                    val bindingParts = binding.replace("[", "").replace("]", "").trim().split(",")
+                    evdevToKey[keySym] = evdevTranslateModifierKeyName(bindingParts[0])
+                }
+            }
+        }
+
+        private fun evdevTranslateModifierKeyName(keyName: String): String {
+            return when (keyName) {
+                "Control_L" -> "Left Control"
+                "at" -> "@"
+                "backslash" -> "\\"
+                "slash" -> "/"
+                "colon" -> ":"
+                "semicolon" -> ";"
+                "period" -> "."
+                "comma" -> ","
+                "bracketleft" -> "["
+                "bracketright" -> "]"
+                else -> keyName.uppercase()
+            }
+        }
+
+        private fun String.runCommand(
+            workingDir: File = File("."),
+            timeoutAmount: Long = 60,
+            timeoutUnit: TimeUnit = TimeUnit.SECONDS
+        ): String? = kotlin.runCatching {
+            ProcessBuilder("\\s".toRegex().split(this))
+                .directory(workingDir)
+                .redirectOutput(ProcessBuilder.Redirect.PIPE)
+                .redirectError(ProcessBuilder.Redirect.PIPE)
+                .start().also { it.waitFor(timeoutAmount, timeoutUnit)}
+                .inputStream.bufferedReader().readText()
+        }.onFailure { it.printStackTrace() }.getOrNull()
+
         private val eventKeyMapping: HashMap<Int, String> = hashMapOf(
             1 to "Escape",
             2 to "1",
@@ -55,7 +164,7 @@ class LinuxInputToFriendlyEvent {
             50 to "M",
             51 to "Comma",
             52 to "Period",
-            53 to "Slash",
+            53 to "/",
             54 to "Right Shift",
             55 to "Keypad Asterisk",
             56 to "Alt",
@@ -108,7 +217,7 @@ class LinuxInputToFriendlyEvent {
             110 to "Insert",
             111 to "Delete",
             119 to "Pause",
-            124 to "Yen",
+            124 to "¥",
             125 to "Left Meta",
             126 to "Right Meta",
             127 to "Compose",
@@ -191,6 +300,11 @@ class LinuxInputToFriendlyEvent {
         )
 
         fun getKeyDisplayName(value: Int): String? {
+            if (evdevKeyMap.containsKey(value + 8)) {
+                if (evdevToKey[evdevKeyMap[value + 8]] != null) {
+                    return (evdevToKey[evdevKeyMap[value + 8]])
+                }
+            }
             return eventKeyMapping[value]
         }
 
