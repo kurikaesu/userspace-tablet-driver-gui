@@ -39,38 +39,53 @@ class LinuxInputToFriendlyEvent {
                 }
             }
 
-            // Get the current keyboard layout
+            // Get the current keyboard layout and variant if there is one
             val layoutString = "setxkbmap -query".runCommand()
             var layout = "us"
+            var variant = "common"
             if (layoutString != null) {
-                val layoutLineRegex = Regex("layout:\\W+[\\w,]+")
+                val layoutLineRegex = Regex("layout:\\W+([\\w,]+)")
                 val matchResult = layoutLineRegex.find(layoutString)
                 if (matchResult != null) {
-                    val parts = matchResult.value.replace(" ", "").split(":")
-                    layout = parts[1].split(",")[0]
+                    val (layouts) = matchResult.destructured
+                    layout = layouts.split(",")[0]
+                }
+
+                val variantLineRegex = Regex("variant:\\W+([\\w,]+)")
+                val variantResult = variantLineRegex.find(layoutString)
+                if (variantResult != null) {
+                    val (variants) = variantResult.destructured
+                    variant = variants.split(",")[0]
                 }
             }
+
+            println("Using layout $layout with variant $variant")
 
             // Take the symbol config
             val symbolKeycodeFilePath = "/usr/share/X11/xkb/symbols/$layout"
             val symbolKeycodeFile = File(symbolKeycodeFilePath)
             val symbolKeycodeLines = symbolKeycodeFile.inputStream().reader().readLines()
 
-            val symbolLineRegex = Regex("key ([<>\\w]+) ?\\{([\\[ \\w,\\t\\]]+)};")
+            val symbolLineRegex = Regex("key ([<>\\w]+)\\W?\\{([\\[ \\w,\\t\\]]+)};")
             var foundSection = false
             for (line in symbolKeycodeLines) {
                 // Search for the symbol section first
                 if (!foundSection) {
-                    if (line.startsWith("xkb_symbols") && line.contains("common")) {
+                    if (line.startsWith("xkb_symbols") && line.contains(variant)) {
                         foundSection = true
-                    } else {
-                        continue
                     }
+
+                    continue
                 }
 
                 // Check to see if we have hit a different section. If so, bail out
-                if ((line.startsWith("xkb_symbols") && !line.contains("common")) || line.startsWith("partial")) {
+                if ((line.startsWith("xkb_symbols") && !line.contains(variant)) || line.startsWith("partial")) {
                     break
+                }
+
+                // Skip lines that are purely comments
+                if (line.trim().startsWith("//")) {
+                    continue
                 }
 
                 val matchResult = symbolLineRegex.find(line)
