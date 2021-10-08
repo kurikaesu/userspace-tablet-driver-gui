@@ -13,6 +13,7 @@ This is a new GUI implementation for the userland driver I've written here: http
 - Huion WH1409 v2
 - Huion WH1409 (2048)
 - Huion H1161
+- Gaomon M10K Pro
 
 The python GUI will no longer be updates as there are severe limitations on assigning keys to it due to the library I used (pynput).
 
@@ -21,7 +22,7 @@ The python GUI will no longer be updates as there are severe limitations on assi
 
 - OpenJDK 11+
 
-Both of the above should be available from your package managers.
+The above should be available from your package managers.
 Once installed:
 ```
 git clone https://github.com/kurikaesu/userspace-tablet-driver-gui.git
