@@ -5,10 +5,14 @@ import dev.villanueva.userland_utility.products.gaomon.m10kpro.M10KProController
 import dev.villanueva.userland_utility.products.gaomon.m10kpro.M10KProView
 import dev.villanueva.userland_utility.products.huion.h1161.H1161Controller
 import dev.villanueva.userland_utility.products.huion.h1161.H1161View
+import dev.villanueva.userland_utility.products.huion.kd100.KD100Controller
+import dev.villanueva.userland_utility.products.huion.kd100.KD100View
 import dev.villanueva.userland_utility.products.huion.wh1409_2048.WH1409_2048Controller
 import dev.villanueva.userland_utility.products.huion.wh1409_2048.WH1409_2048View
 import dev.villanueva.userland_utility.products.huion.wh1409v2.WH1409v2Controller
 import dev.villanueva.userland_utility.products.huion.wh1409v2.WH1409v2View
+import dev.villanueva.userland_utility.products.xppen.ac19.AC19Controller
+import dev.villanueva.userland_utility.products.xppen.ac19.AC19View
 import dev.villanueva.userland_utility.products.xppen.artist_12_pro.Artist12ProController
 import dev.villanueva.userland_utility.products.xppen.artist_12_pro.Artist12ProView
 import dev.villanueva.userland_utility.products.xppen.artist_13_3_pro.Artist13_3ProController
@@ -83,6 +87,12 @@ object SupportedProducts {
         productIdToName[Artist24ProController.getVendorProductString()] = Artist24ProController.getProductName()
         viewDeviceConfigurationMap[Artist24ProController.getProductName()] = Artist24ProView::deviceConfiguration
 
+        // XP-Pen AC19 Shortcut Remote
+        productToClassMap[AC19Controller.getProductName()] = AC19View::class
+        nameToProductIdMap[AC19Controller.getProductName()] = AC19Controller.getVendorProductString()
+        productIdToName[AC19Controller.getVendorProductString()] = AC19Controller.getProductName()
+        viewDeviceConfigurationMap[AC19Controller.getProductName()] = AC19View::deviceConfiguration
+
         // Huion WH1409 v2
         productToClassMap[WH1409v2Controller.getProductName()] = WH1409v2View::class
         nameToProductIdMap[WH1409v2Controller.getProductName()] = WH1409v2Controller.getVendorProductString()
@@ -100,6 +110,12 @@ object SupportedProducts {
         nameToProductIdMap[H1161Controller.getProductName()] = H1161Controller.getVendorProductString()
         productIdToName[H1161Controller.getVendorProductString()] = H1161Controller.getProductName()
         viewDeviceConfigurationMap[H1161Controller.getProductName()] = H1161View::deviceConfiguration
+
+        // Huion KD100
+        productToClassMap[KD100Controller.getProductName()] = KD100View::class
+        nameToProductIdMap[KD100Controller.getProductName()] = KD100Controller.getVendorProductString()
+        productIdToName[KD100Controller.getVendorProductString()] = KD100Controller.getProductName()
+        viewDeviceConfigurationMap[KD100Controller.getProductName()] = KD100View::deviceConfiguration
 
         // Gaomon M10K Pro
         productToClassMap[M10KProController.getProductName()] = M10KProView::class
