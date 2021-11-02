@@ -18,6 +18,8 @@ import tornadofx.action
 import tornadofx.fieldset
 import tornadofx.field
 import tornadofx.button
+import tornadofx.hbox
+import tornadofx.spacer
 
 
 open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMouseWheelListener {
@@ -150,9 +152,11 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
         // Not exactly sure what to do with wheels yet
     }
 
-    private fun createButtonFromMappableItem(parent: Parent, item: MappableItem, controller: ProductController) {
+    private fun createButtonFromMappableItem(parent: Parent, item: MappableItem, controller: ProductController): Button? {
+        var returnVal: Button? = null
         with (parent) {
             button {
+                returnVal = this
                 var labelText = ""
                 if (deviceConfiguration != null) {
                     if (item.itemType == MappableItemType.Button) {
@@ -215,6 +219,22 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
                 }
             }
         }
+
+        return returnVal
+    }
+
+    private fun createClearButtonForMappableItem(parent: Parent, partner: Button?, item: MappableItem, controller: ProductController) {
+        with (parent) {
+            button {
+                text = "Unbind"
+
+                action {
+                    controller.updateMapping(item.itemType, item.driverCode, LinkedHashSet(), item.matchValue, MappableItemType.Button)
+                    controller.updateMapping(item.itemType, item.driverCode, LinkedHashSet(), item.matchValue, MappableItemType.Mouse)
+                    partner?.text = ""
+                }
+            }
+        }
     }
 
     fun createFieldSetFromIterator(parent: Parent, itemIterator: MutableListIterator<MappableItem>, controller: ProductController) {
@@ -224,7 +244,12 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
                     val item = itemIterator.next()
                     field(item.itemName) {
                         if (item.itemType == MappableItemType.Button || item.itemType == MappableItemType.Dial) {
-                            createButtonFromMappableItem(this, item, controller)
+                            hbox(spacing = 10) {
+                                val partner = createButtonFromMappableItem(this, item, controller)
+                                spacer()
+                                // Provide a way to clear the button
+                                createClearButtonForMappableItem(this, partner, item, controller)
+                            }
                         }
                     }
                 }
