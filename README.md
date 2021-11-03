@@ -11,6 +11,7 @@ This is a new GUI implementation for the userland driver I've written here: http
 - XP-Pen Artist 22r Pro
 - XP-Pen Artist 24 Pro
 - XP-Pen AC19 Shortcut Remote
+- Huion Kamvas Pro 13
 - Huion WH1409 v2
 - Huion WH1409 (2048)
 - Huion H1161

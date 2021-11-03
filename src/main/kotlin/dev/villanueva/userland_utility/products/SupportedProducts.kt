@@ -5,6 +5,8 @@ import dev.villanueva.userland_utility.products.gaomon.m10kpro.M10KProController
 import dev.villanueva.userland_utility.products.gaomon.m10kpro.M10KProView
 import dev.villanueva.userland_utility.products.huion.h1161.H1161Controller
 import dev.villanueva.userland_utility.products.huion.h1161.H1161View
+import dev.villanueva.userland_utility.products.huion.kamvas_pro_13.KamvasPro13Controller
+import dev.villanueva.userland_utility.products.huion.kamvas_pro_13.KamvasPro13View
 import dev.villanueva.userland_utility.products.huion.kd100.KD100Controller
 import dev.villanueva.userland_utility.products.huion.kd100.KD100View
 import dev.villanueva.userland_utility.products.huion.wh1409_2048.WH1409_2048Controller
@@ -92,6 +94,12 @@ object SupportedProducts {
         nameToProductIdMap[AC19Controller.getProductName()] = AC19Controller.getVendorProductString()
         productIdToName[AC19Controller.getVendorProductString()] = AC19Controller.getProductName()
         viewDeviceConfigurationMap[AC19Controller.getProductName()] = AC19View::deviceConfiguration
+
+        // Huion Kamvas Pro 13
+        productToClassMap[KamvasPro13Controller.getProductName()] = KamvasPro13View::class
+        nameToProductIdMap[KamvasPro13Controller.getProductName()] = KamvasPro13Controller.getVendorProductString()
+        productIdToName[KamvasPro13Controller.getVendorProductString()] = KamvasPro13Controller.getProductName()
+        viewDeviceConfigurationMap[KamvasPro13Controller.getProductName()] = KamvasPro13View::deviceConfiguration
 
         // Huion WH1409 v2
         productToClassMap[WH1409v2Controller.getProductName()] = WH1409v2View::class
