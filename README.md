@@ -18,7 +18,7 @@ This is a new GUI implementation for the userland driver I've written here: http
 - Huion KD100 mini Keydial
 - Gaomon M10K Pro
 
-The python GUI will no longer be updates as there are severe limitations on assigning keys to it due to the library I used (pynput).
+The python GUI will no longer be updated as there are severe limitations on assigning keys to it due to the library I used (pynput).
 
 ## Building and running
 ### Prerequisites:
