@@ -9,6 +9,9 @@ import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 
 class Artist24ProController : ProductController() {
     init {
+        mapLeftItems.add(MappableItem(MappableItemType.StylusButton, "Stylus 1", DriverCodeIDs.BTN_STYLUS.code, 0))
+        mapLeftItems.add(MappableItem(MappableItemType.StylusButton, "Stylus 2", DriverCodeIDs.BTN_STYLUS2.code, 0))
+
         mapLeftItems.add(MappableItem(MappableItemType.Button, "K1", DriverCodeIDs.BTN_0.code, 0))
         mapLeftItems.add(MappableItem(MappableItemType.Button, "K2", DriverCodeIDs.BTN_1.code, 0))
         mapLeftItems.add(MappableItem(MappableItemType.Button, "K3", DriverCodeIDs.BTN_2.code, 0))

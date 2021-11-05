@@ -9,6 +9,8 @@ import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 
 class KamvasPro13Controller : ProductController() {
     init {
+        mapItems.add(MappableItem(MappableItemType.StylusButton, "Stylus 1", DriverCodeIDs.BTN_STYLUS.code, 0))
+        mapItems.add(MappableItem(MappableItemType.StylusButton, "Stylus 2", DriverCodeIDs.BTN_STYLUS2.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K1", DriverCodeIDs.BTN_0.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K2", DriverCodeIDs.BTN_1.code, 0))
         mapItems.add(MappableItem(MappableItemType.Dial, "Touch -> Up", DriverCodeIDs.REL_WHEEL.code, -1))
