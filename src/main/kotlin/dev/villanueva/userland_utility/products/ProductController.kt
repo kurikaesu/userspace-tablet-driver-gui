@@ -12,6 +12,7 @@ abstract class ProductController : Controller() {
     val mapItems: ObservableList<MappableItem> = FXCollections.observableArrayList()
     val mapLeftItems: ObservableList<MappableItem> = FXCollections.observableArrayList()
     val mapRightItems: ObservableList<MappableItem> = FXCollections.observableArrayList()
+    private val stylusButtonMappings: HashMap<String, HashMap<String, LinkedHashSet<Int>>> = HashMap()
     private val buttonBindings: HashMap<String, HashMap<String, LinkedHashSet<Int>>> = HashMap()
     private val dialBindings: HashMap<String, HashMap<String, HashMap<String, LinkedHashSet<Int>>>> = HashMap()
 
@@ -24,23 +25,34 @@ abstract class ProductController : Controller() {
 
         val referenceIdString = referenceId.toString()
         val mappedItemTypeString = mappedItemType.value.toString()
-        if (itemType == MappableItemType.Button) {
-            if (!buttonBindings.containsKey(referenceIdString)) {
-                buttonBindings[referenceIdString] = HashMap()
-            }
+        when (itemType) {
+            MappableItemType.StylusButton -> {
+                if (!stylusButtonMappings.containsKey(referenceIdString)) {
+                    stylusButtonMappings[referenceIdString] = HashMap()
+                }
 
-            buttonBindings[referenceIdString]!![mappedItemTypeString] = LinkedHashSet(mappedValues)
-        } else if (itemType == MappableItemType.Dial) {
-            val matchValueString = matchValue.toString()
-            if (!dialBindings.containsKey(referenceIdString)) {
-                dialBindings[referenceIdString] = HashMap()
+                stylusButtonMappings[referenceIdString]!![mappedItemTypeString] = LinkedHashSet(mappedValues)
             }
+            MappableItemType.Button -> {
+                if (!buttonBindings.containsKey(referenceIdString)) {
+                    buttonBindings[referenceIdString] = HashMap()
+                }
 
-            if (!dialBindings[referenceIdString]!!.containsKey(matchValueString)) {
-                dialBindings[referenceIdString]!![matchValueString] = HashMap()
+                buttonBindings[referenceIdString]!![mappedItemTypeString] = LinkedHashSet(mappedValues)
             }
+            MappableItemType.Dial -> {
+                val matchValueString = matchValue.toString()
+                if (!dialBindings.containsKey(referenceIdString)) {
+                    dialBindings[referenceIdString] = HashMap()
+                }
 
-            dialBindings[referenceIdString]!![matchValueString]!![mappedItemTypeString] = LinkedHashSet(mappedValues)
+                if (!dialBindings[referenceIdString]!!.containsKey(matchValueString)) {
+                    dialBindings[referenceIdString]!![matchValueString] = HashMap()
+                }
+
+                dialBindings[referenceIdString]!![matchValueString]!![mappedItemTypeString] = LinkedHashSet(mappedValues)
+            }
+            else -> {}
         }
     }
 
@@ -51,6 +63,7 @@ abstract class ProductController : Controller() {
     open fun commitChanges(deviceConfiguration: DeviceConfiguration?) {
         println("Committing changes")
         if (deviceConfiguration != null) {
+            deviceConfiguration.mapping.stylusButtons = this.stylusButtonMappings
             deviceConfiguration.mapping.buttons = this.buttonBindings
             deviceConfiguration.mapping.dials = this.dialBindings
 

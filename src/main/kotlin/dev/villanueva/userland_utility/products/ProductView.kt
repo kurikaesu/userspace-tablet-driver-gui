@@ -159,8 +159,12 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
                 returnVal = this
                 var labelText = ""
                 if (deviceConfiguration != null) {
-                    if (item.itemType == MappableItemType.Button) {
-                        val buttonMap = deviceConfiguration!!.mapping.buttons[item.driverCode.toString()]
+                    if (item.itemType == MappableItemType.StylusButton || item.itemType == MappableItemType.Button) {
+                        val buttonMap = when (item.itemType) {
+                            MappableItemType.StylusButton -> deviceConfiguration!!.mapping.stylusButtons[item.driverCode.toString()]
+                            MappableItemType.Button -> deviceConfiguration!!.mapping.buttons[item.driverCode.toString()]
+                            else -> null
+                        }
 
                         if (buttonMap != null) {
                             val buttonValueString = MappableItemType.Button.value.toString()
@@ -243,7 +247,7 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
                 while (itemIterator.hasNext()) {
                     val item = itemIterator.next()
                     field(item.itemName) {
-                        if (item.itemType == MappableItemType.Button || item.itemType == MappableItemType.Dial) {
+                        if (item.itemType == MappableItemType.StylusButton || item.itemType == MappableItemType.Button || item.itemType == MappableItemType.Dial) {
                             hbox(spacing = 10) {
                                 val partner = createButtonFromMappableItem(this, item, controller)
                                 spacer()

@@ -22,6 +22,10 @@ enum class DriverCodeIDs(val code: Int) {
     BTN_TL2(312),
     BTN_TR2(313),
 
+    BTN_STYLUS3(329),
+    BTN_STYLUS(331),
+    BTN_STYLUS2(332),
+
     REL_WHEEL(0x08),
     REL_HWHEEL(0x06),
 }

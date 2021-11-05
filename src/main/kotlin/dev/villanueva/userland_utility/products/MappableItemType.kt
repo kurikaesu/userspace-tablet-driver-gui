@@ -5,4 +5,5 @@ enum class MappableItemType(val value: Int) {
     Dial(2),
     Mouse(3),
     Scroll(4),
+    StylusButton(5),
 }
