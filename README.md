@@ -6,7 +6,10 @@ This is a new GUI implementation for the userland driver I've written here: http
 - XP-Pen Deco Pro Small
 - XP-Pen Deco Pro Medium
 - XP-Pen Deco 01 v2
+- XP-Pen Deco 03
+- XP-Pen Deco mini7/mini7w
 - XP-Pen Artist 12 Pro
+- XP-Pen Artist 12 (2nd Gen)
 - XP-Pen Artist 13.3 Pro
 - XP-Pen Artist 22r Pro
 - XP-Pen Artist 24 Pro
@@ -17,8 +20,6 @@ This is a new GUI implementation for the userland driver I've written here: http
 - Huion H1161
 - Huion KD100 mini Keydial
 - Gaomon M10K Pro
-
-The python GUI will no longer be updated as there are severe limitations on assigning keys to it due to the library I used (pynput).
 
 ## Building and running
 ### Prerequisites:

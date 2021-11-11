@@ -1,4 +1,4 @@
-package dev.villanueva.userland_utility.products.xppen.deco
+package dev.villanueva.userland_utility.products.xppen.deco_mini
 
 import dev.villanueva.userland_utility.products.DriverCodeIDs
 import dev.villanueva.userland_utility.products.MappableItem
@@ -7,18 +7,18 @@ import dev.villanueva.userland_utility.products.ProductController
 import dev.villanueva.userland_utility.products.config.Configuration
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 
-class Deco03Controller : ProductController() {
+class DecoMini7Controller : ProductController() {
     init {
         mapItems.add(MappableItem(MappableItemType.StylusButton, "Stylus 1", DriverCodeIDs.BTN_STYLUS.code, 0))
         mapItems.add(MappableItem(MappableItemType.StylusButton, "Stylus 2", DriverCodeIDs.BTN_STYLUS2.code, 0))
-        mapItems.add(MappableItem(MappableItemType.Dial, "Dial -> Left", DriverCodeIDs.REL_WHEEL.code, -1))
-        mapItems.add(MappableItem(MappableItemType.Dial, "Dial -> Right", DriverCodeIDs.REL_WHEEL.code, 1))
         mapItems.add(MappableItem(MappableItemType.Button, "K1", DriverCodeIDs.BTN_0.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K2", DriverCodeIDs.BTN_1.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K3", DriverCodeIDs.BTN_2.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K4", DriverCodeIDs.BTN_3.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K5", DriverCodeIDs.BTN_4.code, 0))
         mapItems.add(MappableItem(MappableItemType.Button, "K6", DriverCodeIDs.BTN_5.code, 0))
+        mapItems.add(MappableItem(MappableItemType.Button, "K7", DriverCodeIDs.BTN_6.code, 0))
+        mapItems.add(MappableItem(MappableItemType.Button, "K8", DriverCodeIDs.BTN_7.code, 0))
     }
 
     override fun updateExistingDeviceConfig(deviceConfiguration: DeviceConfiguration): Configuration {
@@ -29,7 +29,7 @@ class Deco03Controller : ProductController() {
 
     companion object {
         private fun getProductId(): Short {
-            return 150
+            return 2344
         }
 
         private fun getVendorId(): Short {
@@ -49,7 +49,7 @@ class Deco03Controller : ProductController() {
         }
 
         fun getProductName(): String {
-            return "XP-Pen Deco 03"
+            return "XP-Pen Deco mini7"
         }
     }
 }
