@@ -23,6 +23,8 @@ import dev.villanueva.userland_utility.products.xppen.artist_12_pro.Artist12ProG
 import dev.villanueva.userland_utility.products.xppen.artist_12_pro.Artist12ProView
 import dev.villanueva.userland_utility.products.xppen.artist_13_3_pro.Artist13_3ProController
 import dev.villanueva.userland_utility.products.xppen.artist_13_3_pro.Artist13_3ProView
+import dev.villanueva.userland_utility.products.xppen.artist_15_6_pro.Artist15_6ProController
+import dev.villanueva.userland_utility.products.xppen.artist_15_6_pro.Artist15_6ProView
 import dev.villanueva.userland_utility.products.xppen.artist_22r_pro.Artist22rProController
 import dev.villanueva.userland_utility.products.xppen.artist_22r_pro.Artist22rProView
 import dev.villanueva.userland_utility.products.xppen.artist_22e_pro.Artist22eProController
@@ -102,6 +104,12 @@ object SupportedProducts {
         nameToProductIdMap[Artist13_3ProController.getProductName()] = Artist13_3ProController.getVendorProductString()
         productIdToName[Artist13_3ProController.getVendorProductString()] = Artist13_3ProController.getProductName()
         viewDeviceConfigurationMap[Artist13_3ProController.getProductName()] = Artist13_3ProView::deviceConfiguration
+
+        // XP-Pen Artist 15.6 Pro
+        productToClassMap[Artist15_6ProController.getProductName()] = Artist15_6ProView::class
+        nameToProductIdMap[Artist15_6ProController.getProductName()] = Artist15_6ProController.getVendorProductString()
+        productIdToName[Artist15_6ProController.getVendorProductString()] = Artist15_6ProController.getProductName()
+        viewDeviceConfigurationMap[Artist15_6ProController.getProductName()] = Artist15_6ProView::deviceConfiguration
 
         // XP-Pen Artist 22r Pro
         productToClassMap[Artist22rProController.getProductName()] = Artist22rProView::class
