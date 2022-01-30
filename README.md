@@ -21,6 +21,7 @@ This is a new GUI implementation for the userland driver I've written here: http
 - Huion H1161
 - Huion KD100 mini Keydial
 - Gaomon M10K Pro
+- Gaomon M10K 2018
 
 ## Building and running
 ### Prerequisites:
