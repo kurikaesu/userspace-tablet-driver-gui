@@ -3,6 +3,8 @@ package dev.villanueva.userland_utility.products
 import dev.villanueva.userland_utility.products.config.DeviceConfiguration
 import dev.villanueva.userland_utility.products.gaomon.m10kpro.M10KProController
 import dev.villanueva.userland_utility.products.gaomon.m10kpro.M10KProView
+import dev.villanueva.userland_utility.products.gaomon.m10kpro.M10K2018Controller
+import dev.villanueva.userland_utility.products.gaomon.m10kpro.M10K2018View
 import dev.villanueva.userland_utility.products.huion.h1161.H1161Controller
 import dev.villanueva.userland_utility.products.huion.h1161.H1161View
 import dev.villanueva.userland_utility.products.huion.kamvas_pro_13.KamvasPro13Controller
@@ -170,6 +172,12 @@ object SupportedProducts {
         nameToProductIdMap[M10KProController.getProductName()] = M10KProController.getVendorProductString()
         productIdToName[M10KProController.getVendorProductString()] = M10KProController.getProductName()
         viewDeviceConfigurationMap[M10KProController.getProductName()] = M10KProView::deviceConfiguration
+
+        // Gaomon M10K 2018
+        productToClassMap[M10K2018Controller.getProductName()] = M10K2018View::class
+        nameToProductIdMap[M10K2018Controller.getProductName()] = M10K2018Controller.getVendorProductString()
+        productIdToName[M10K2018Controller.getVendorProductString()] = M10K2018Controller.getProductName()
+        viewDeviceConfigurationMap[M10K2018Controller.getProductName()] = M10K2018View::deviceConfiguration
     }
 
     fun getViewForProduct(product: String): KClass<out ProductView>? {
