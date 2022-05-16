@@ -41,6 +41,8 @@ import dev.villanueva.userland_utility.products.xppen.deco_mini.DecoMini7Control
 import dev.villanueva.userland_utility.products.xppen.deco_mini.DecoMini7View
 import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProMediumController
 import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProMediumView
+import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProMediumWirelessController
+import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProMediumWirelessView
 import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProSmallController
 import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProSmallView
 import kotlin.reflect.KClass
@@ -64,6 +66,12 @@ object SupportedProducts {
         nameToProductIdMap[DecoProMediumController.getProductName()] = DecoProMediumController.getVendorProductString()
         productIdToName[DecoProMediumController.getVendorProductString()] = DecoProMediumController.getProductName()
         viewDeviceConfigurationMap[DecoProMediumController.getProductName()] = DecoProMediumView::deviceConfiguration
+
+        // XP-Pen Deco Pro Medium Wireless
+        productToClassMap[DecoProMediumWirelessController.getProductName()] = DecoProMediumWirelessView::class
+        nameToProductIdMap[DecoProMediumWirelessController.getProductName()] = DecoProMediumWirelessController.getVendorProductString()
+        productIdToName[DecoProMediumWirelessController.getVendorProductString()] = DecoProMediumWirelessController.getProductName()
+        viewDeviceConfigurationMap[DecoProMediumWirelessController.getProductName()] = DecoProMediumWirelessView::deviceConfiguration
 
         // XP-Pen Deco 01v2
         productToClassMap[Deco01v2Controller.getProductName()] = Deco01v2View::class
