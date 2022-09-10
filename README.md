@@ -12,6 +12,7 @@ This is a new GUI implementation for the userland driver I've written here: http
 - XP-Pen Artist 12 Pro (2nd Gen)
 - XP-Pen Artist 12 (2nd Gen)
 - XP-Pen Artist 13.3 Pro
+- XP-Pen Artist Pro 16
 - XP-Pen Artist 22r Pro
 - XP-Pen Artist 24 Pro
 - XP-Pen AC19 Shortcut Remote
