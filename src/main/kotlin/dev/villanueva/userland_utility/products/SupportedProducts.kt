@@ -33,8 +33,8 @@ import dev.villanueva.userland_utility.products.xppen.artist_22e_pro.Artist22ePr
 import dev.villanueva.userland_utility.products.xppen.artist_22e_pro.Artist22eProView
 import dev.villanueva.userland_utility.products.xppen.artist_24_pro.Artist24ProController
 import dev.villanueva.userland_utility.products.xppen.artist_24_pro.Artist24ProView
-import dev.villanueva.userland_utility.products.xppen.artist_pro_16.ArtistPro16View
 import dev.villanueva.userland_utility.products.xppen.artist_pro_16.ArtistPro16Controller
+import dev.villanueva.userland_utility.products.xppen.artist_pro_16.ArtistPro16View
 import dev.villanueva.userland_utility.products.xppen.deco.Deco01v2Controller
 import dev.villanueva.userland_utility.products.xppen.deco.Deco01v2View
 import dev.villanueva.userland_utility.products.xppen.deco.Deco03Controller
@@ -47,6 +47,8 @@ import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProMediumWire
 import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProMediumWirelessView
 import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProSmallController
 import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProSmallView
+import dev.villanueva.userland_utility.products.xppen.innovator_16.Innovator16Controller
+import dev.villanueva.userland_utility.products.xppen.innovator_16.Innovator16View
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
 
@@ -146,6 +148,12 @@ object SupportedProducts {
         nameToProductIdMap[Artist24ProController.getProductName()] = Artist24ProController.getVendorProductString()
         productIdToName[Artist24ProController.getVendorProductString()] = Artist24ProController.getProductName()
         viewDeviceConfigurationMap[Artist24ProController.getProductName()] = Artist24ProView::deviceConfiguration
+
+        // XP-Pen Innovator 16
+        productToClassMap[Innovator16Controller.getProductName()] = Innovator16View::class
+        nameToProductIdMap[Innovator16Controller.getProductName()] = Innovator16Controller.getVendorProductString()
+        productIdToName[Innovator16Controller.getVendorProductString()] = Innovator16Controller.getProductName()
+        viewDeviceConfigurationMap[Innovator16Controller.getProductName()] = Innovator16View::deviceConfiguration
 
         // XP-Pen AC19 Shortcut Remote
         productToClassMap[AC19Controller.getProductName()] = AC19View::class
