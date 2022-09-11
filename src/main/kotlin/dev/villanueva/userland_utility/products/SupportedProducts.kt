@@ -36,6 +36,7 @@ import dev.villanueva.userland_utility.products.xppen.artist_24_pro.Artist24ProC
 import dev.villanueva.userland_utility.products.xppen.artist_24_pro.Artist24ProView
 import dev.villanueva.userland_utility.products.xppen.artist_16_pro.Artist16ProView
 import dev.villanueva.userland_utility.products.xppen.artist_pro_16.ArtistPro16Controller
+import dev.villanueva.userland_utility.products.xppen.artist_pro_16.ArtistPro16View
 import dev.villanueva.userland_utility.products.xppen.deco.Deco01v2Controller
 import dev.villanueva.userland_utility.products.xppen.deco.Deco01v2View
 import dev.villanueva.userland_utility.products.xppen.deco.Deco03Controller
@@ -133,10 +134,10 @@ object SupportedProducts {
         viewDeviceConfigurationMap[Artist16ProController.getProductName()] = Artist16ProView::deviceConfiguration
 
         // XP-Pen Artist Pro 16
-        productToClassMap[ArtistPro16Controller.getProductName()] = Artist16ProView::class
+        productToClassMap[ArtistPro16Controller.getProductName()] = ArtistPro16View::class
         nameToProductIdMap[ArtistPro16Controller.getProductName()] = ArtistPro16Controller.getVendorProductString()
         productIdToName[ArtistPro16Controller.getVendorProductString()] = ArtistPro16Controller.getProductName()
-        viewDeviceConfigurationMap[ArtistPro16Controller.getProductName()] = Artist16ProView::deviceConfiguration
+        viewDeviceConfigurationMap[ArtistPro16Controller.getProductName()] = ArtistPro16View::deviceConfiguration
 
         // XP-Pen Artist 22r Pro
         productToClassMap[Artist22rProController.getProductName()] = Artist22rProView::class
