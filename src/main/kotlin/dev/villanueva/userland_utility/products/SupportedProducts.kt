@@ -37,10 +37,7 @@ import dev.villanueva.userland_utility.products.xppen.artist_24_pro.Artist24ProV
 import dev.villanueva.userland_utility.products.xppen.artist_16_pro.Artist16ProView
 import dev.villanueva.userland_utility.products.xppen.artist_pro_16.ArtistPro16Controller
 import dev.villanueva.userland_utility.products.xppen.artist_pro_16.ArtistPro16View
-import dev.villanueva.userland_utility.products.xppen.deco.Deco01v2Controller
-import dev.villanueva.userland_utility.products.xppen.deco.Deco01v2View
-import dev.villanueva.userland_utility.products.xppen.deco.Deco03Controller
-import dev.villanueva.userland_utility.products.xppen.deco.Deco03View
+import dev.villanueva.userland_utility.products.xppen.deco.*
 import dev.villanueva.userland_utility.products.xppen.deco_mini.DecoMini7Controller
 import dev.villanueva.userland_utility.products.xppen.deco_mini.DecoMini7View
 import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProMediumController
@@ -84,6 +81,12 @@ object SupportedProducts {
         nameToProductIdMap[Deco01v2Controller.getProductName()] = Deco01v2Controller.getVendorProductString()
         productIdToName[Deco01v2Controller.getVendorProductString()] = Deco01v2Controller.getProductName()
         viewDeviceConfigurationMap[Deco01v2Controller.getProductName()] = Deco01v2View::deviceConfiguration
+
+        // XP-Pen Deco 02
+        productToClassMap[Deco02Controller.getProductName()] = Deco02View::class
+        nameToProductIdMap[Deco02Controller.getProductName()] = Deco02Controller.getVendorProductString()
+        productIdToName[Deco02Controller.getVendorProductString()] = Deco02Controller.getProductName()
+        viewDeviceConfigurationMap[Deco02Controller.getProductName()] = Deco02View::deviceConfiguration
 
         // XP-Pen Deco 03
         productToClassMap[Deco03Controller.getProductName()] = Deco03View::class
