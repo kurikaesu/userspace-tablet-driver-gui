@@ -6,6 +6,7 @@ This is a new GUI implementation for the userland driver I've written here: http
 - XP-Pen Deco Pro Small
 - XP-Pen Deco Pro Medium
 - XP-Pen Deco 01 v2
+- XP-Pen Deco 02
 - XP-Pen Deco 03
 - XP-Pen Deco mini7/mini7w
 - XP-Pen Artist 12 Pro
