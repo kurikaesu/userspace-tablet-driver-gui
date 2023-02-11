@@ -220,6 +220,8 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
                             item.matchValue
                         )
                     }
+                } else {
+                    System.out.println("Device configuration was null!")
                 }
             }
         }

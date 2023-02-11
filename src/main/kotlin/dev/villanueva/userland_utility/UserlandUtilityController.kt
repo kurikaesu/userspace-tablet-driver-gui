@@ -45,7 +45,11 @@ class UserlandUtilityController: Controller() {
             val productConfig = vendorConfig[parts[1]]
             if (productConfig != null) {
                 return productConfig
+            } else {
+                println(String.format("There is no product config for %s", parts[1]))
             }
+        } else {
+            println(String.format("There is no vendor config for (%s)", parts[0]))
         }
 
         return null

@@ -48,6 +48,10 @@ import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProSmallContr
 import dev.villanueva.userland_utility.products.xppen.deco_pro.DecoProSmallView
 import dev.villanueva.userland_utility.products.xppen.innovator_16.Innovator16Controller
 import dev.villanueva.userland_utility.products.xppen.innovator_16.Innovator16View
+import dev.villanueva.userland_utility.products.xppen.star.StarG430SController
+import dev.villanueva.userland_utility.products.xppen.star.StarG430SView
+import dev.villanueva.userland_utility.products.xppen.star.StarG640Controller
+import dev.villanueva.userland_utility.products.xppen.star.StarG640View
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
 
@@ -165,6 +169,18 @@ object SupportedProducts {
         nameToProductIdMap[Innovator16Controller.getProductName()] = Innovator16Controller.getVendorProductString()
         productIdToName[Innovator16Controller.getVendorProductString()] = Innovator16Controller.getProductName()
         viewDeviceConfigurationMap[Innovator16Controller.getProductName()] = Innovator16View::deviceConfiguration
+
+        // XP-Pen Star G430S
+        productToClassMap[StarG430SController.getProductName()] = StarG430SView::class
+        nameToProductIdMap[StarG430SController.getProductName()] = StarG430SController.getVendorProductString()
+        productIdToName[StarG430SController.getVendorProductString()] = StarG430SController.getProductName()
+        viewDeviceConfigurationMap[StarG430SController.getProductName()] = StarG430SView::deviceConfiguration
+
+        // XP-Pen Star G640
+        productToClassMap[StarG640Controller.getProductName()] = StarG640View::class
+        nameToProductIdMap[StarG640Controller.getProductName()] = StarG640Controller.getVendorProductString()
+        productIdToName[StarG640Controller.getVendorProductString()] = StarG640Controller.getProductName()
+        viewDeviceConfigurationMap[StarG640Controller.getProductName()] = StarG640View::deviceConfiguration
 
         // XP-Pen AC19 Shortcut Remote
         productToClassMap[AC19Controller.getProductName()] = AC19View::class
