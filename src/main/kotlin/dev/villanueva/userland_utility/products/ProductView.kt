@@ -13,13 +13,7 @@ import javafx.application.Platform
 import javafx.scene.Parent
 import javafx.scene.control.Button
 import javafx.scene.input.KeyEvent
-import tornadofx.View
-import tornadofx.action
-import tornadofx.fieldset
-import tornadofx.field
-import tornadofx.button
-import tornadofx.hbox
-import tornadofx.spacer
+import tornadofx.*
 
 
 open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMouseWheelListener {
@@ -243,6 +237,44 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
         }
     }
 
+    private fun createToggleDisableButtonForMappleItem(parent: Parent, partner: Button?, item: MappableItem, controller: ProductController) {
+        with (parent) {
+            button {
+                var label = "Disable"
+
+                if (item.itemType == MappableItemType.StylusButton) {
+                    if (deviceConfiguration!!.disabled.stylusButtons.contains(item.driverCode.toString())) {
+                        label = "Enable"
+                    }
+                } else if (item.itemType == MappableItemType.Button) {
+                    if (deviceConfiguration!!.disabled.buttons.contains(item.driverCode.toString())) {
+                        label = "Enable"
+                    }
+                } else if (item.itemType == MappableItemType.Dial) {
+                    if (deviceConfiguration!!.disabled.dials.contains(item.driverCode.toString())) {
+                        label = "Enable"
+                    }
+                }
+
+                text = label
+
+                action {
+                    when (text) {
+                        "Disable" -> {
+                            controller.disableMapping(item.itemType, item.driverCode, true)
+                            text = "Enable"
+                        }
+                        "Enable" -> {
+                            controller.disableMapping(item.itemType, item.driverCode, false)
+                            text = "Disable"
+                        }
+                        else -> println("Something is broken")
+                    }
+                }
+            }
+        }
+    }
+
     fun createFieldSetFromIterator(parent: Parent, itemIterator: MutableListIterator<MappableItem>, controller: ProductController) {
         with (parent) {
             fieldset {
@@ -255,6 +287,8 @@ open class ProductView: View(), NativeKeyListener, NativeMouseListener, NativeMo
                                 spacer()
                                 // Provide a way to clear the button
                                 createClearButtonForMappableItem(this, partner, item, controller)
+                                spacer()
+                                createToggleDisableButtonForMappleItem(this, partner, item, controller)
                             }
                         }
                     }

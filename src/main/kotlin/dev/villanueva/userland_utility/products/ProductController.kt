@@ -16,6 +16,10 @@ abstract class ProductController : Controller() {
     private val buttonBindings: HashMap<String, HashMap<String, LinkedHashSet<Int>>> = HashMap()
     private val dialBindings: HashMap<String, HashMap<String, HashMap<String, LinkedHashSet<Int>>>> = HashMap()
 
+    private val stylusButtonDisabled: HashSet<String> = HashSet()
+    private val buttonDisabled: HashSet<String> = HashSet()
+    private val dialDisabled: HashSet<String> = HashSet()
+
     open fun updateMapping(
         itemType: MappableItemType,
         referenceId: Int,
@@ -56,6 +60,38 @@ abstract class ProductController : Controller() {
         }
     }
 
+    open fun disableMapping(
+        itemType: MappableItemType,
+        referenceId: Int,
+        disable: Boolean
+    ) {
+        val referenceIdString = referenceId.toString()
+        when (itemType) {
+            MappableItemType.StylusButton -> {
+                if (disable) {
+                    stylusButtonDisabled.add(referenceIdString)
+                } else {
+                    stylusButtonDisabled.remove(referenceIdString)
+                }
+            }
+            MappableItemType.Button -> {
+                if (disable) {
+                    buttonDisabled.add(referenceIdString)
+                } else {
+                    buttonDisabled.remove(referenceIdString)
+                }
+            }
+            MappableItemType.Dial -> {
+                if (disable) {
+                    dialDisabled.add(referenceIdString)
+                } else {
+                    dialDisabled.remove(referenceIdString)
+                }
+            }
+            else -> {}
+        }
+    }
+
     open fun updateExistingDeviceConfig(deviceConfiguration: DeviceConfiguration): Configuration {
         return Configuration()
     }
@@ -66,6 +102,10 @@ abstract class ProductController : Controller() {
             deviceConfiguration.mapping.stylusButtons = this.stylusButtonMappings
             deviceConfiguration.mapping.buttons = this.buttonBindings
             deviceConfiguration.mapping.dials = this.dialBindings
+
+            deviceConfiguration.disabled.stylusButtons = this.stylusButtonDisabled
+            deviceConfiguration.disabled.buttons = this.buttonDisabled
+            deviceConfiguration.disabled.dials = this.dialDisabled
 
             val existingConfig = updateExistingDeviceConfig(deviceConfiguration)
             existingConfig.writeConfig()
