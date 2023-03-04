@@ -98,6 +98,12 @@ object SupportedProducts {
         productIdToName[Deco03Controller.getVendorProductString()] = Deco03Controller.getProductName()
         viewDeviceConfigurationMap[Deco03Controller.getProductName()] = Deco03View::deviceConfiguration
 
+        // XP-Pen Deco Large
+        productToClassMap[DecoLargeController.getProductName()] = DecoLargeView::class
+        nameToProductIdMap[DecoLargeController.getProductName()] = DecoLargeController.getVendorProductString()
+        productIdToName[DecoLargeController.getVendorProductString()] = DecoLargeController.getProductName()
+        viewDeviceConfigurationMap[DecoLargeController.getProductName()] = DecoLargeView::deviceConfiguration
+
         // XP-Pen Deco mini7
         productToClassMap[DecoMini7Controller.getProductName()] = DecoMini7View::class
         nameToProductIdMap[DecoMini7Controller.getProductName()] = DecoMini7Controller.getVendorProductString()
