@@ -31,7 +31,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.5.21")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
     implementation("no.tornado:tornadofx:2.0.0-SNAPSHOT")
-    implementation("com.github.kwhat:jnativehook:2.2-SNAPSHOT")
+    implementation("com.github.kwhat:jnativehook:2.2.2")
     implementation("com.kohlschutter.junixsocket:junixsocket-core:2.4.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.12.5")
 }
