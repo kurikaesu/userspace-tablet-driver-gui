@@ -32,7 +32,7 @@ This is a new GUI implementation for the userland driver I've written here: http
 ## Building and running
 ### Prerequisites:
 
-- OpenJDK 11+
+- OpenJDK 11+ (e.g., https://adoptium.net/temurin/releases?version=11)
 
 The above should be available from your package managers.
 Once installed:
