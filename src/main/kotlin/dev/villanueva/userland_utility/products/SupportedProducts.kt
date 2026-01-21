@@ -52,6 +52,8 @@ import dev.villanueva.userland_utility.products.xppen.star.StarG430SController
 import dev.villanueva.userland_utility.products.xppen.star.StarG430SView
 import dev.villanueva.userland_utility.products.xppen.star.StarG640Controller
 import dev.villanueva.userland_utility.products.xppen.star.StarG640View
+import dev.villanueva.userland_utility.products.xppen.star.StarG640SController
+import dev.villanueva.userland_utility.products.xppen.star.StarG640SView
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
 
@@ -187,6 +189,12 @@ object SupportedProducts {
         nameToProductIdMap[StarG640Controller.getProductName()] = StarG640Controller.getVendorProductString()
         productIdToName[StarG640Controller.getVendorProductString()] = StarG640Controller.getProductName()
         viewDeviceConfigurationMap[StarG640Controller.getProductName()] = StarG640View::deviceConfiguration
+
+        // XP-Pen Star G640S
+        productToClassMap[StarG640SController.getProductName()] = StarG640SView::class
+        nameToProductIdMap[StarG640SController.getProductName()] = StarG640SController.getVendorProductString()
+        productIdToName[StarG640SController.getVendorProductString()] = StarG640SController.getProductName()
+        viewDeviceConfigurationMap[StarG640SController.getProductName()] = StarG640SView::deviceConfiguration
 
         // XP-Pen AC19 Shortcut Remote
         productToClassMap[AC19Controller.getProductName()] = AC19View::class
